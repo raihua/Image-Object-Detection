@@ -1,10 +1,10 @@
-import base_detector_model
+from .base_detector_model import BaseDetectorModel
 import object_detector as obj_det
 
-class MobileNetDetector(base_detector_model):
-    def __init__(self, labels):
-        pass
-
+class MobileNetDetector(BaseDetectorModel):
+    def __init__(self, labels = []):
+        super().__init__()
+        
     def add_labels(self, labels):
         pass
 
