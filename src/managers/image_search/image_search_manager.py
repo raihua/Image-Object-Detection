@@ -1,6 +1,10 @@
 class ImageSearchManager():
     def add(self, image_path: str) -> None:
-        pass
+        if not isinstance(image_path, str):
+            raise TypeError
+        
+        
+
 
     def search(self, option: str) -> None:
         pass
