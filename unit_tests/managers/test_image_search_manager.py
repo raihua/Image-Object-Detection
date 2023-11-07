@@ -1,12 +1,6 @@
-import sys
-import os
-
-# Add the project root to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
-
-from src.managers.image_search_manager import ImageSearchManager
-
 import pytest
+from .. import project_root
+from src.managers.image_search_manager import ImageSearchManager
 
 @pytest.fixture
 def manager():

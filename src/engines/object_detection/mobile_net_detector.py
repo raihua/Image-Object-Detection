@@ -1,4 +1,4 @@
-from .base_detector_model import BaseDetectorModel
+from base_detector_model import BaseDetectorModel
 import object_detector as obj_det
 
 class MobileNetDetector(BaseDetectorModel):
