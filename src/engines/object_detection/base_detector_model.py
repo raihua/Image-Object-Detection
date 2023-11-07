@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-def BaseDetectorModel(ABC):
+class BaseDetectorModel(ABC):
     
     @abstractmethod
     def encode_labels(self, labels):
