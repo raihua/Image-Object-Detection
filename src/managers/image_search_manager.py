@@ -2,7 +2,7 @@ class ImageSearchManager():
     def add(self, image_path):
         pass
         
-    def search(self, option):
+    def search(self, option, terms):
         pass
 
     def similar(self, k, image_path):
