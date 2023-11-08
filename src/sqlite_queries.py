@@ -8,9 +8,10 @@ CREATE TABLE IF NOT EXISTS Images (
 CREATE_DETECTED_OBJECTS_TABLE_QUERY = """
 CREATE TABLE IF NOT EXISTS Detected_Objects (
     detection_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    image_id INTEGER,
+    image_path TEXT,
     detected_object TEXT NOT NULL,
-    FOREIGN KEY (image_id) REFERENCES Images(image_id)
+    FOREIGN KEY (image_path) REFERENCES Images(image_path),
+    UNIQUE (image_path, detected_object)
 );
 """
 
@@ -19,7 +20,9 @@ INSERT INTO Images (image_path) VALUES (?);
 """
 
 SELECT_INCLUDE_ALL_DETECTED = """
-SELECT Images.image_path, Detected_Objects.detect_object
-FROM Images
-LEFT JOIN Detected_Objects ON Images.image_path = Detected_Objects.image_path;
+SELECT image_path
+FROM Detected_Objects
+WHERE detected_object IN ({})
+GROUP BY image_path
+HAVING COUNT(DISTINCT detected_object) = {};
 """
