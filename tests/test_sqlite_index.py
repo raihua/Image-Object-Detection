@@ -1,7 +1,10 @@
 import pytest
 import sqlite3
 from src.sqlite_indexing import SQLiteIndexing
-from src.sqlite_queries import CREATE__IMAGES_TABLE_QUERY, CREATE_DETECTED_OBJECTS_TABLE_QUERY
+from src.sqlite_queries import (
+    CREATE__IMAGES_TABLE_QUERY, 
+    CREATE_DETECTED_OBJECTS_TABLE_QUERY, 
+)
 
 @pytest.fixture
 def sqlite_connection():
@@ -33,8 +36,13 @@ def test_tables_exist(sqlite_connection):
 
 def test_add_image_path(sqlite_connection):
     image_path = "example_images/image1.jpg"
-    select_image_path_query = "SELECT image_path FROM Images WHERE image_path = 'example_images/image1.jpg';"
     sqlite_connection.add_image_path(image_path)
+
+    select_image_path_query = "SELECT image_path FROM Images WHERE image_path = 'example_images/image1.jpg';"
     sqlite_connection.cursor.execute(select_image_path_query)
+    
     result = sqlite_connection.cursor.fetchone()
     assert result is not None
+
+def test_get_images_with_all_objects(sqlite_connection):
+    
