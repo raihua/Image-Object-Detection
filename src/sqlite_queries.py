@@ -14,6 +14,12 @@ CREATE TABLE IF NOT EXISTS Detected_Objects (
 );
 """
 
-INSERT_IMAGE_PATH_PARAM_QUERY = """INSERT INTO Images (image_path) VALUES (?);"""
+INSERT_IMAGE_PATH_PARAM_QUERY = """
+INSERT INTO Images (image_path) VALUES (?);
+"""
 
-SELECT_DETECTED_OBJECTS = 
+SELECT_INCLUDE_ALL_DETECTED = """
+SELECT Images.image_path, Detected_Objects.detect_object
+FROM Images
+LEFT JOIN Detected_Objects ON Images.image_path = Detected_Objects.image_path;
+"""
