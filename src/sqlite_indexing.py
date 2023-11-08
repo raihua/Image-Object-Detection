@@ -5,7 +5,7 @@ from src.sqlite_queries import (
     CREATE__IMAGES_TABLE_QUERY,
     CREATE_DETECTED_OBJECTS_TABLE_QUERY,
     INSERT_IMAGE_PATH_PARAM_QUERY,
-    SELECT_INCLUDE_ALL_DETECTED
+    SELECT_INCLUDE_ALL_DETECTED,
 )
 
 
@@ -25,7 +25,11 @@ class SQLiteIndexing(IndexStrategy):
         self.conn.commit()
 
     def get_images_with_all_objects(self, objects):
-        pass
+        query = SELECT_INCLUDE_ALL_DETECTED.format(
+            ", ".join(["?"] * len(objects)), len(objects)
+        )
+        result = self.cursor.execute(query, objects).fetchall()
+        return [row[0] for row in result]
 
     def get_images_with_some_objects(self, objects):
         pass
