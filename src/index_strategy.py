@@ -1,12 +1,9 @@
 from abc import ABC, abstractmethod
 
+
 class IndexStrategy(ABC):
     @abstractmethod
     def add_image_path(self, path):
-        pass
-
-    @abstractmethod
-    def get_detected_objects(self, path):
         pass
 
     @abstractmethod
