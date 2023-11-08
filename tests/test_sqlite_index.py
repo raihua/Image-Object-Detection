@@ -14,6 +14,16 @@ def sqlite_connection():
     yield sqlite_connection
     sqlite_connection.close()
 
+@pytest.fixture
+def sqlite_data(sqlite_connection):
+    # Insert image paths and associated objects in 'Detected_Objects' table
+    sqlite_connection.add_image_path("example_images/image1.jpg")
+    sqlite_connection.cursor.execute("INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);", ("example_images/image1.jpg", "chair"))
+    sqlite_connection.cursor.execute("INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);", ("example_images/image1.jpg", "dining table"))
+    sqlite_connection.cursor.execute("INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);", ("example_images/image1.jpg", "potted plant"))
+    sqlite_connection.conn.commit()
+
+
 
 def test_sqlite_connection(sqlite_connection):
     sqlite_conn = sqlite_connection.conn
@@ -45,4 +55,7 @@ def test_add_image_path(sqlite_connection):
     assert result is not None
 
 def test_get_images_with_all_objects(sqlite_connection):
-    
+    objects_to_find = ["chair", "dining table", "potted plant"]
+    result_paths = sqlite_connection.get_images_with_all_objects(objects_to_find)
+    expected_image_paths = ["example_images/image1.jpg"]
+    assert result_paths == expected_image_paths
