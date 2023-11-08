@@ -1,9 +1,8 @@
 import pytest
-from .. import project_root
 from src.managers.image_search_manager import ImageSearchManager
 
 @pytest.fixture
-def manager():
+def manager():  
     return ImageSearchManager()
 
 def test_add(manager):

@@ -1,5 +1,5 @@
-from base_detector_model import BaseDetectorModel
 import object_detector as obj_det
+from .base_detector_model import BaseDetectorModel
 
 class MobileNetDetector(BaseDetectorModel):
     def __init__(self, labels = []):
