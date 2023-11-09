@@ -36,22 +36,14 @@ def test_sqlite_connection(sqlite_connection):
 
 
 def test_tables_exist(sqlite_connection):
-    sqlite_connection.create_table()
-
-    # Check for 'Images' table
-    sqlite_connection.cursor.execute(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name=?;", ("Images",)
-    )
-    image_table_exists = sqlite_connection.cursor.fetchone() is not None
-
-    # Check for 'Detected_Objects' table
-    sqlite_connection.cursor.execute(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name=?;",
-        ("Detected_Objects",),
-    )
-    detected_table_exists = sqlite_connection.cursor.fetchone() is not None
-
-    assert image_table_exists and detected_table_exists
+    # Check the existence of tables 'Images' and 'Detected_Objects'
+    tables = ["Images", "Detected_Objects"]
+    for table in tables:
+        sqlite_connection.cursor.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?;", (table,)
+        )
+        table_exists = sqlite_connection.cursor.fetchone() is not None
+        assert table_exists
 
 
 def test_add_image_path(sqlite_connection):
@@ -70,6 +62,7 @@ def test_add_image_path(sqlite_connection):
 def test_add_detected_objects(sqlite_connection):
     detected_objects = ["car"]
     image_path = "example_images/image4.jpg"
+
     sqlite_connection.add_detected_objects(image_path, detected_objects)
 
     # Complete the query to check for the detected objects at the image_path
@@ -79,13 +72,12 @@ def test_add_detected_objects(sqlite_connection):
     WHERE image_path = ? AND detected_object = ?;
     """
 
-    sqlite_connection.cursor.execute(query, (image_path, detected_objects[0]))  # Assuming the first element is 'car'
+    sqlite_connection.cursor.execute(
+        query, (image_path, detected_objects[0])
+    )  # Assuming the first element is 'car'
 
     result = sqlite_connection.cursor.fetchone()
     assert result is not None
-
-
-
 
 
 def test_get_images_with_all_objects(sqlite_connection, insert_initial_data):
