@@ -2,7 +2,7 @@ from sqlite_indexing import SQLiteIndexing
 
 
 class IndexAccess:
-    def __init__(self, strategy=SQLiteIndexing()):
+    def __init__(self, strategy):
         self.__strategy = strategy
 
     def get_strategy(self):
