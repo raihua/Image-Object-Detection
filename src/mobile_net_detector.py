@@ -11,10 +11,9 @@ class MobileNetDetector(BaseDetectorModel):
         for label in labels:
             last_key += 1
             obj_det.ALL_LABELS[last_key] = label
-        print(obj_det.ALL_LABELS)
 
     def encode_labels(self, labels):
-        obj_det.encode_labels(labels)
+        pass
 
     def load_model(self):
         pass
