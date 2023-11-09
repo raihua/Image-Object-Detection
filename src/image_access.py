@@ -4,8 +4,8 @@ import os
 
 class ImageAccess:
     def __init__(self, directory):
-        allowed_directory = "example_images"  # Set the allowed directory name
-        if directory != allowed_directory:
+        self.__allowed_directory = "example_images"  # Set the allowed directory name
+        if directory != self.__allowed_directory:
             raise ValueError("Access to directory not permitted")
         self.__directory = directory
 
