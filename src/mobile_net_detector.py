@@ -3,9 +3,6 @@ import object_detector as obj_det
 
 
 class MobileNetDetector(BaseDetectorModel):
-    def __init__(self):
-        self.__model_path = obj_det.DETECTION_MODEL_DIR
-
     def add_labels(self, labels):
         last_key = max(obj_det.ALL_LABELS.keys())
         for label in labels:
@@ -13,10 +10,10 @@ class MobileNetDetector(BaseDetectorModel):
             obj_det.ALL_LABELS[last_key] = label
 
     def encode_labels(self, labels):
-        pass
+        obj_det.encode_labels(labels)
 
     def load_model(self):
-        pass
-    
+        obj_det.load_model()
+
     def detect_objects(self, image):
-        pass
+        obj_det.detect_objects(image)
