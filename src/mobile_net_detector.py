@@ -3,7 +3,9 @@ import object_detector as obj_det
 
 
 class MobileNetDetector(BaseDetectorModel):
+    
     def __init__(self):
+        super().__init__()
         self.__wrappee = obj_det
     
     def add_labels(self, labels):
