@@ -19,3 +19,7 @@ class IndexStrategy(ABC):
     @abstractmethod
     def get_images_with_some_objects(self, objects):
         pass
+
+    @abstractmethod
+    def get_all_images_and_objects(self):
+        pass

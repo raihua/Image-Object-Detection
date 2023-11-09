@@ -1,5 +1,6 @@
 import pytest
 import sqlite3
+from unittest.mock import Mock
 from src.sqlite_indexing import SQLiteIndexing
 from src.sqlite_queries import (
     CREATE__IMAGES_TABLE_QUERY,
@@ -20,6 +21,10 @@ def insert_initial_data(sqlite_connection):
     # Insert image paths and associated objects in 'Detected_Objects' table
     image_path = "example_images/image1.jpg"
     sqlite_connection.cursor.execute(
+        "INSERT INTO Images (image_path) VALUES (?);",
+        (image_path,)  # Ensure the value is a tuple
+    )
+    sqlite_connection.cursor.execute(
         "INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);",
         (image_path, "chair"),
     )
@@ -28,6 +33,7 @@ def insert_initial_data(sqlite_connection):
         (image_path, "dining table"),
     )
     sqlite_connection.conn.commit()
+
 
 
 def test_sqlite_connection(sqlite_connection):
@@ -92,3 +98,10 @@ def test_get_images_with_some_objects(sqlite_connection, insert_initial_data):
     result_paths = sqlite_connection.get_images_with_some_objects(objects_to_find)
     expected_image_paths = ["example_images/image1.jpg"]
     assert result_paths == expected_image_paths
+
+def test_get_all_images_and_objects(sqlite_connection, insert_initial_data):
+    results = sqlite_connection.get_all_images_and_objects()
+    example_result = {
+    "example_images/image1.jpg": ["chair", "dining table"]
+    }
+    assert results == example_result
