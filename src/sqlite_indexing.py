@@ -12,7 +12,8 @@ from sqlite_queries import (
 
 
 class SQLiteIndexing(IndexStrategy):
-    def __init__(self, db="memory.db"):
+    def __init__(self, db=":memory:"):
+        super().__init__()
         self.__db = db
         self.__conn = sqlite3.connect(self.__db)
         self.__cursor = self.__conn.cursor()
