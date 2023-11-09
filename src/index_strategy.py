@@ -7,6 +7,10 @@ class IndexStrategy(ABC):
         pass
 
     @abstractmethod
+    def add_detected_objects(self, path, objects):
+        pass
+
+    @abstractmethod
     def get_images_with_all_objects(self, objects):
         pass
 
