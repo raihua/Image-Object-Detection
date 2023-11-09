@@ -12,14 +12,15 @@ from sqlite_queries import (
 
 
 class SQLiteIndexing(IndexStrategy):
-    def __init__(self, db):
+    def __init__(self, db="memory.db"):
         self.__db = db
         self.__conn = sqlite3.connect(self.__db)
         self.__cursor = self.__conn.cursor()
+        self.create_table()
 
     def get_connection(self):
         return self.__conn
-    
+
     def get_cursor(self):
         return self.__cursor
 
@@ -33,22 +34,33 @@ class SQLiteIndexing(IndexStrategy):
         self.__conn.commit()
 
     def add_detected_objects(self, image_path, objects):
+        if isinstance(objects, str):  # Check if 'objects' is a string
+            objects = [objects]
         values = [(image_path, obj) for obj in objects]
         self.__cursor.executemany(INSERT_DETECTED_OBJECTS_PARAM_QUERY, values)
         self.__conn.commit()
 
     def get_images_with_all_objects(self, objects):
+        # Construct the query by dynamically inserting the objects list into the query template
         query = SELECT_INCLUDE_ALL_DETECTED.format(
             ", ".join(["?"] * len(objects)), len(objects)
         )
+
+        # Execute the query and fetch the results
         result = self.__cursor.execute(query, objects).fetchall()
+
+        # Extract image paths from the results and return them
         return [row[0] for row in result]
 
     def get_images_with_some_objects(self, objects):
+        # Construct the query by dynamically inserting the objects list into the query template
         query = SELECT_INCLUDE_SOME_DETECTED.format(", ".join(["?"] * len(objects)))
+
+        # Execute the query and fetch the results
         result = self.__cursor.execute(query, objects).fetchall()
+
+        # Extract image paths from the results and return them
         return [row[0] for row in result]
-    
+
     conn = property(get_connection)
     cursor = property(get_cursor)
-    
