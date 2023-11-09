@@ -23,3 +23,7 @@ def test_encode_labels(mobile_net_detector):
     result = mobile_net_detector.encode_labels(label)
     assert result[0] == True
 
+def test_load_model(mobile_net_detector):
+    model = mobile_net_detector.load_model()
+    assert callable(model)
+
