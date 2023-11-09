@@ -26,3 +26,10 @@ WHERE detected_object IN ({})
 GROUP BY image_path
 HAVING COUNT(DISTINCT detected_object) = {};
 """
+
+SELECT_INCLUDE_SOME_DETECTED = """
+SELECT image_path
+FROM Detected_Objects
+WHERE detected_object IN ({})
+GROUP BY image_path;
+"""
