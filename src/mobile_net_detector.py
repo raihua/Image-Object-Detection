@@ -12,12 +12,15 @@ class MobileNetDetector(BaseDetectorModel):
             last_key += 1
             self.__wrappee.ALL_LABELS[last_key] = label
 
+    def get_labels(self):
+        return self.__wrappee.ALL_LABELS
+
     def encode_labels(self, labels):
-        self.__wrappee.encode_labels(labels)
+        return self.__wrappee.encode_labels(labels)
 
     def load_model(self):
-        self.__wrappee.load_model()
+        return self.__wrappee.load_model()
 
     def detect_objects(self, image):
-        self.__wrappee.detect_objects(image)
+        return self.__wrappee.detect_objects(image)
 
