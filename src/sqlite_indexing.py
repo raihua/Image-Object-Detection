@@ -13,18 +13,11 @@ from sqlite_queries import (
 
 
 class SQLiteIndexing(IndexStrategy):
-    def __init__(self, db=":memory:"):
+    def __init__(self, conn):
         super().__init__()
-        self.__db = db
-        self.__conn = sqlite3.connect(self.__db)
+        self.__conn = conn
         self.__cursor = self.__conn.cursor()
-        self.create_table()
-
-    def get_connection(self):
-        return self.__conn
-
-    def get_cursor(self):
-        return self.__cursor
+        self.create_table()     
 
     def create_table(self):
         self.__cursor.execute(CREATE__IMAGES_TABLE_QUERY)
@@ -75,5 +68,3 @@ class SQLiteIndexing(IndexStrategy):
 
         return result_dict
 
-    conn = property(get_connection)
-    cursor = property(get_cursor)
