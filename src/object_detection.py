@@ -15,7 +15,7 @@ class ObjectDetection:
         return self.__detector_model.add_labels(labels)
     
     def get_labels(self):
-        return self.__detector_model.get_labels(self)
+        return self.__detector_model.get_labels()
 
     def encode_labels(self, labels):
         return self.__detector_model.encode_labels(labels)
