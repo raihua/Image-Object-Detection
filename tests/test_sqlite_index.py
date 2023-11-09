@@ -67,6 +67,27 @@ def test_add_image_path(sqlite_connection):
     assert result is not None
 
 
+def test_add_detected_objects(sqlite_connection):
+    detected_objects = ["car"]
+    image_path = "example_images/image4.jpg"
+    sqlite_connection.add_detected_objects(image_path, detected_objects)
+
+    # Complete the query to check for the detected objects at the image_path
+    query = """
+    SELECT * 
+    FROM Detected_Objects 
+    WHERE image_path = ? AND detected_object = ?;
+    """
+
+    sqlite_connection.cursor.execute(query, (image_path, detected_objects[0]))  # Assuming the first element is 'car'
+
+    result = sqlite_connection.cursor.fetchone()
+    assert result is not None
+
+
+
+
+
 def test_get_images_with_all_objects(sqlite_connection, insert_initial_data):
     objects_to_find = ["chair", "dining table"]
     result_paths = sqlite_connection.get_images_with_all_objects(objects_to_find)
