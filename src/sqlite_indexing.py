@@ -6,6 +6,7 @@ from src.sqlite_queries import (
     CREATE_DETECTED_OBJECTS_TABLE_QUERY,
     INSERT_IMAGE_PATH_PARAM_QUERY,
     SELECT_INCLUDE_ALL_DETECTED,
+    SELECT_INCLUDE_SOME_DETECTED
 )
 
 
@@ -20,9 +21,12 @@ class SQLiteIndexing(IndexStrategy):
         self.cursor.execute(CREATE_DETECTED_OBJECTS_TABLE_QUERY)
         self.conn.commit()
 
-    def add_image_path(self, image_path):
-        self.cursor.execute(INSERT_IMAGE_PATH_PARAM_QUERY, (image_path,))
+    def add_image_path(self, path):
+        self.cursor.execute(INSERT_IMAGE_PATH_PARAM_QUERY, (path,))
         self.conn.commit()
+
+    def add_detected_objects(self, objects):
+
 
     def get_images_with_all_objects(self, objects):
         query = SELECT_INCLUDE_ALL_DETECTED.format(
@@ -32,4 +36,7 @@ class SQLiteIndexing(IndexStrategy):
         return [row[0] for row in result]
 
     def get_images_with_some_objects(self, objects):
-        pass
+        query = SELECT_INCLUDE_SOME_DETECTED.format(", ".join(["?"] * len(objects)))
+        result = self.cursor.execute(query, objects).fetchall()
+        return [row[0] for row in result]
+
