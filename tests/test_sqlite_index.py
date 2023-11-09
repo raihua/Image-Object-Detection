@@ -27,10 +27,6 @@ def insert_initial_data(sqlite_connection):
         "INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);",
         (image_path, "dining table"),
     )
-    sqlite_connection.cursor.execute(
-        "INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);",
-        (image_path, "potted plant"),
-    )
     sqlite_connection.conn.commit()
 
 
@@ -72,7 +68,14 @@ def test_add_image_path(sqlite_connection):
 
 
 def test_get_images_with_all_objects(sqlite_connection, insert_initial_data):
-    objects_to_find = ["chair", "dining table", "potted plant"]
+    objects_to_find = ["chair", "dining table"]
     result_paths = sqlite_connection.get_images_with_all_objects(objects_to_find)
+    expected_image_paths = ["example_images/image1.jpg"]
+    assert result_paths == expected_image_paths
+
+
+def test_get_images_with_some_objects(sqlite_connection, insert_initial_data):
+    objects_to_find = ["potted plant", "dining table"]
+    result_paths = sqlite_connection.get_images_with_some_objects(objects_to_find)
     expected_image_paths = ["example_images/image1.jpg"]
     assert result_paths == expected_image_paths
