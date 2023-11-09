@@ -5,8 +5,12 @@ from src.image_access import ImageAccess
 
 @pytest.fixture
 def mobile_net_detector():
-    return MobileNetDetector()
+    yield MobileNetDetector()
 
+def test_get_labels(mobile_net_detector):
+    result = mobile_net_detector.get_labels()
+    expected_result = ALL_LABELS
+    assert result == expected_result
 
 def test_add_labels(mobile_net_detector):
     labels = ["person"]
@@ -14,10 +18,6 @@ def test_add_labels(mobile_net_detector):
     result = mobile_net_detector.get_labels()
     assert result[91] == "person"
 
-def test_get_labels(mobile_net_detector):
-    result = mobile_net_detector.get_labels()
-    expected_result = ALL_LABELS
-    assert result == expected_result
 
 def test_encode_labels(mobile_net_detector):
     label = ["person"]
