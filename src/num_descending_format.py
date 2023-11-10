@@ -6,7 +6,7 @@ class NumDescendingFormat(FormatStrategy):
     def __init__(self):
         super().__init__()
 
-    def format_data(self, result_data):
+    def format_and_convert_to_tuple(self, result_data):
         sorted_result_data = tuple(
             sorted(result_data.items(), key=lambda item: item[1], reverse=True)
         )

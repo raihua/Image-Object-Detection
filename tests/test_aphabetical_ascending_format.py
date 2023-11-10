@@ -18,8 +18,8 @@ def image_data():
     return image_data
 
 
-def test_format_data(format_alphabet_asc, image_data):
-    result = format_alphabet_asc.format_data(image_data)
+def test_format_and_convert_to_tuple(format_alphabet_asc, image_data):
+    result = format_alphabet_asc.format_and_convert_to_tuple(image_data)
     
     expected_result = (
         ("example_images/image1.jpg", 0.4082),

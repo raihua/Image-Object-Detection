@@ -12,10 +12,10 @@ class OutputFormatter:
                 raise ValueError("k must be greater than or equal to 2 if provided")
         return k
 
-    def format_data(self, image_data, k=None):
+    def format_and_convert_to_tuple(self, image_data, k=None):
         k = self.validate_k(k, image_data)
 
-        formatted_data = self.__strategy.format_data(image_data)
+        formatted_data = self.__strategy.format_and_convert_to_tuple(image_data)
 
         if k is not None:
             k_results_data = self.get_top_k_results(formatted_data, k)

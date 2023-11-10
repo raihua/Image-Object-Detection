@@ -18,8 +18,8 @@ def image_data():
     return image_data
 
 
-def test_format_data(format_num_descending, image_data):
-    result = format_num_descending.format_data(image_data)
+def test_format_and_convert_to_tuple(format_num_descending, image_data):
+    result = format_num_descending.format_and_convert_to_tuple(image_data)
 
     expected_result = (
         ("example_images/image3.jpg", 1.0000),

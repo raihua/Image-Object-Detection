@@ -36,8 +36,8 @@ def test_set_strategy(output_formatter, num_desc_format):
     assert isinstance(output_formatter._OutputFormatter__strategy, NumDescendingFormat)
 
 
-def test_format_data(output_formatter, image_data):
-    result = output_formatter.format_data(image_data)
+def test_format_and_convert_to_tuple(output_formatter, image_data):
+    result = output_formatter.format_and_convert_to_tuple(image_data)
 
     expected_result = (
         ("example_images/image1.jpg", 0.4082),
