@@ -1,6 +1,5 @@
-from sklearn.metrics.pairwise import cosine_similarity
+import sklearn.metrics.pairwise as smp
 from similarity_strategy import SimilarityStrategy
-from index_access import IndexAccess
 
 
 class CosineSimilarity(SimilarityStrategy):
@@ -8,5 +7,5 @@ class CosineSimilarity(SimilarityStrategy):
         super().__init__()
 
     def calculate_similarity(self, image, image_compared):
-        similarity = cosine_similarity(image, image_compared)
+        similarity = smp.cosine_similarity(image, image_compared)
         return similarity

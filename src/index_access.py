@@ -1,6 +1,3 @@
-from sqlite_indexing import SQLiteIndexing
-
-
 class IndexAccess:
     def __init__(self, strategy):
         self.__strategy = strategy

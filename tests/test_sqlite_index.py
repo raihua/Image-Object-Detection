@@ -1,11 +1,6 @@
 import pytest
 import sqlite3
-from unittest.mock import Mock
 from src.sqlite_indexing import SQLiteIndexing
-from src.sqlite_queries import (
-    CREATE__IMAGES_TABLE_QUERY,
-    CREATE_DETECTED_OBJECTS_TABLE_QUERY,
-)
 
 
 @pytest.fixture

@@ -1,5 +1,3 @@
-import sqlite3
-
 from index_strategy import IndexStrategy
 from sqlite_queries import (
     CREATE__IMAGES_TABLE_QUERY,
