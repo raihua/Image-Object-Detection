@@ -13,3 +13,4 @@ def test_calculate_similarity(cosine_similarity):
     original_array = np.array([[1, 2], [3, 4]])
     flattened_array = original_array.flatten().reshape(1, -1)
     result = cosine_similarity.calculate_similarity(flattened_array, flattened_array)
+    assert result == pytest.approx(1)
