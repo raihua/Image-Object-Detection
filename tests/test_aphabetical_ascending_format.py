@@ -1,6 +1,7 @@
 import pytest
 from src.alphabetical_ascending_format import AlphabeticalAscendingFormat
 
+
 @pytest.fixture
 def format_alphabet_asc():
     return AlphabeticalAscendingFormat()

@@ -39,20 +39,18 @@ class SQLiteIndexing(IndexStrategy):
             ", ".join(["?"] * len(objects)), len(objects)
         )
 
-        # Execute the query and fetch the results
         result = self.__cursor.execute(query, objects).fetchall()
 
-        # Extract image paths from the results and return them
+        # ('example_images/image1.jpg',), path at 1st element
         return [row[0] for row in result]
 
     def get_images_with_some_objects(self, objects):
         # Construct the query by dynamically inserting the objects list into the query template
         query = SELECT_INCLUDE_SOME_DETECTED.format(", ".join(["?"] * len(objects)))
 
-        # Execute the query and fetch the results
         result = self.__cursor.execute(query, objects).fetchall()
 
-        # Extract image paths from the results and return them
+        # ('example_images/image1.jpg',), path at 1st element
         return [row[0] for row in result]
 
     def get_all_images_and_objects(self):

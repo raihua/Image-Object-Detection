@@ -7,5 +7,7 @@ class NumDescendingFormat(FormatStrategy):
         super().__init__()
 
     def format_data(self, result_data):
-        sorted_dict = dict(sorted(result_data.items(), key=lambda item: item[1], reverse=True))
+        sorted_dict = dict(
+            sorted(result_data.items(), key=lambda item: item[1], reverse=True)
+        )
         return sorted_dict
