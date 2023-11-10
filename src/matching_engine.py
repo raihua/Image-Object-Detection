@@ -1,4 +1,6 @@
 import numpy as np
+
+
 class MatchingEngine:
     def __init__(self, strategy):
         self.__strategy = strategy
@@ -17,4 +19,3 @@ class MatchingEngine:
             results[img_path] = similarity_score
 
         return results
-

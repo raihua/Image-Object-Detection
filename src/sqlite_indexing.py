@@ -65,4 +65,3 @@ class SQLiteIndexing(IndexStrategy):
         result_dict = {row[0]: [row[1].split(",")] if row[1] else [] for row in result}
 
         return result_dict
-
