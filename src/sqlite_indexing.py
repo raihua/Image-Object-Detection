@@ -17,7 +17,7 @@ class SQLiteIndexing(IndexStrategy):
         super().__init__()
         self.__conn = conn
         self.__cursor = self.__conn.cursor()
-        self.create_table()     
+        self.create_table()
 
     def create_table(self):
         self.__cursor.execute(CREATE__IMAGES_TABLE_QUERY)
@@ -63,8 +63,6 @@ class SQLiteIndexing(IndexStrategy):
         self.__cursor.execute(query)
         result = self.__cursor.fetchall()
 
-        result_dict = {row[0]: row[1].split(',') if row[1] else [] for row in result}
-
+        result_dict = {row[0]: row[1].split(",") if row[1] else [] for row in result}
 
         return result_dict
-

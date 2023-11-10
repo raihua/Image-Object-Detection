@@ -4,10 +4,12 @@ from src.object_detection import MobileNetDetector
 from src.object_detector import ALL_LABELS
 from src.image_access import ImageAccess
 
+
 @pytest.fixture
 def object_detection():
     strategy = MobileNetDetector()
     yield ObjectDetection(strategy)
+
 
 def test_set_model(object_detection):
     object_detection.set_model(None)
@@ -28,9 +30,11 @@ def test_encode_labels(object_detection):
     result = object_detection.encode_labels(label)
     assert result[0] == True
 
+
 def test_load_model(object_detection):
     model = object_detection.load_model()
     assert callable(model)
+
 
 def test_detect_objects(object_detection):
     file_path = "example_images/image4.jpg"

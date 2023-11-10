@@ -2,8 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class IndexStrategy(ABC):
-
-
     @abstractmethod
     def add_image_path(self, path):
         pass

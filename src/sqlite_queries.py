@@ -18,9 +18,9 @@ INSERT_IMAGE_PATH_PARAM_QUERY = """
 INSERT INTO Images (image_path) VALUES (?);
 """
 
-INSERT_DETECTED_OBJECTS_PARAM_QUERY = '''
+INSERT_DETECTED_OBJECTS_PARAM_QUERY = """
 INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);
-'''
+"""
 
 SELECT_INCLUDE_ALL_DETECTED = """
 SELECT image_path

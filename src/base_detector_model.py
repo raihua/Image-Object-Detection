@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BaseDetectorModel(ABC):
     @abstractmethod
     def encode_labels(self, labels):

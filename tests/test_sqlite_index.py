@@ -24,7 +24,7 @@ def insert_initial_data(sqlite_indexing_connection_cursor):
     image_path = "example_images/image1.jpg"
     cursor.execute(
         "INSERT INTO Images (image_path) VALUES (?);",
-        (image_path,)  # Ensure the value is a tuple
+        (image_path,),  # Ensure the value is a tuple
     )
     cursor.execute(
         "INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);",
@@ -35,6 +35,7 @@ def insert_initial_data(sqlite_indexing_connection_cursor):
         (image_path, "dining table"),
     )
     conn.commit()
+
 
 def test_tables_exist(sqlite_indexing_connection_cursor):
     _, _, cursor = sqlite_indexing_connection_cursor
@@ -87,7 +88,9 @@ def test_add_detected_objects(sqlite_indexing_connection_cursor):
     assert result is not None
 
 
-def test_get_images_with_all_objects(sqlite_indexing_connection_cursor, insert_initial_data):
+def test_get_images_with_all_objects(
+    sqlite_indexing_connection_cursor, insert_initial_data
+):
     sqlite_index, _, _ = sqlite_indexing_connection_cursor
 
     objects_to_find = ["chair", "dining table"]
@@ -96,19 +99,22 @@ def test_get_images_with_all_objects(sqlite_indexing_connection_cursor, insert_i
     assert result_paths == expected_image_paths
 
 
-def test_get_images_with_some_objects(sqlite_indexing_connection_cursor, insert_initial_data):
+def test_get_images_with_some_objects(
+    sqlite_indexing_connection_cursor, insert_initial_data
+):
     sqlite_index, _, _ = sqlite_indexing_connection_cursor
-   
+
     objects_to_find = ["potted plant", "dining table"]
     result_paths = sqlite_index.get_images_with_some_objects(objects_to_find)
     expected_image_paths = ["example_images/image1.jpg"]
     assert result_paths == expected_image_paths
 
-def test_get_all_images_and_objects(sqlite_indexing_connection_cursor, insert_initial_data):
+
+def test_get_all_images_and_objects(
+    sqlite_indexing_connection_cursor, insert_initial_data
+):
     sqlite_index, _, _ = sqlite_indexing_connection_cursor
 
     results = sqlite_index.get_all_images_and_objects()
-    example_result = {
-    "example_images/image1.jpg": ["chair", "dining table"]
-    }
+    example_result = {"example_images/image1.jpg": ["chair", "dining table"]}
     assert results == example_result

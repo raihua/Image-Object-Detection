@@ -1,16 +1,17 @@
 from mobile_net_detector import MobileNetDetector
 from numpy import ndarray
 
+
 class ObjectDetection:
     def __init__(self, detector_model):
-        self.__detector_model  = detector_model
-    
+        self.__detector_model = detector_model
+
     def set_model(self, model):
         self.__detector_model = model
 
     def add_labels(self, labels):
         return self.__detector_model.add_labels(labels)
-    
+
     def get_labels(self):
         return self.__detector_model.get_labels()
 

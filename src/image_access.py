@@ -24,7 +24,6 @@ class ImageAccess:
 
         return image_data
 
-    
     def flatten_and_reshape_image(image_data):
         # Flatten and reshape the image data
         flattened_image = image_data.flatten().reshape(1, -1)
