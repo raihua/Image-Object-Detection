@@ -12,12 +12,8 @@ def object_detection():
 
 def test_set_model(object_detection):
     object_detection.set_model(None)
-    new_model = object_detection.detector_model
+    new_model = object_detection._ObjectDetection__detector_model
     assert new_model is None
-
-def test_get_model(object_detection):
-    model = object_detection.get_model()
-    assert isinstance(model, MobileNetDetector)
 
 def test_get_labels(object_detection):
     labels = object_detection.get_labels()
