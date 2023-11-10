@@ -1,4 +1,5 @@
-from matplotlib.image import imread
+import matplotlib.image as mpimg
+import numpy as np
 import os
 
 
@@ -19,10 +20,15 @@ class ImageAccess:
         file_path = os.path.join(self.__directory, self.__filename)
 
         # Read the image data using imread()
-        with open(file_path, 'rb') as f:
-            image_data = imread(f)
+        image_data = mpimg.imread(file_path)
 
         return image_data
+
+    
+    def flatten_and_reshape_image(image_data):
+        # Flatten and reshape the image data
+        flattened_image = image_data.flatten().reshape(1, -1)
+        return flattened_image
 
     def __validate_directory(self, path):
         # Extract the directory component
