@@ -27,7 +27,7 @@ class SQLiteIndexing(IndexStrategy):
         self.__conn.commit()
 
     def add_detected_objects(self, image_path, objects):
-        if isinstance(objects, str):  # Check if 'objects' is a string
+        if isinstance(objects, str):
             objects = [objects]
         values = [(image_path, obj) for obj in objects]
         self.__cursor.executemany(INSERT_DETECTED_OBJECTS_PARAM_QUERY, values)
@@ -58,9 +58,10 @@ class SQLiteIndexing(IndexStrategy):
     def get_all_images_and_objects(self):
         query = SELECT_ALL_IMAGES_OBJECTS_QUERY
 
-        self.__cursor.execute(query)
-        result = self.__cursor.fetchall()
+        result = self.__cursor.execute(query).fetchall()
 
+        # result is in form {"path": "a, b, c"}
+        # this converts it to {"path": ["a", "b", "C"]}
         result_dict = {row[0]: row[1].split(",") if row[1] else [] for row in result}
 
         return result_dict
