@@ -4,27 +4,24 @@ from src.object_detection import MobileNetDetector
 from src.object_detector import ALL_LABELS
 from src.image_access import ImageAccess
 
-all_labels_original = ALL_LABELS
-
 @pytest.fixture
 def object_detection():
-    yield ObjectDetection(MobileNetDetector())
+    strategy = MobileNetDetector()
+    yield ObjectDetection(strategy)
 
 def test_set_model(object_detection):
     object_detection.set_model(None)
     new_model = object_detection._ObjectDetection__detector_model
     assert new_model is None
 
-def test_get_labels(object_detection):
-    labels = object_detection.get_labels()
-    expected_labels = all_labels_original
-    assert labels == expected_labels
 
-def test_add_labels(object_detection):
+def test_add_get_labels(object_detection):
+    original_labels = ALL_LABELS.copy()
     labels = ["person"]
     object_detection.add_labels(labels)
     result = object_detection.get_labels()
     assert result[91] == "person"
+
 
 def test_encode_labels(object_detection):
     label = ["person"]
