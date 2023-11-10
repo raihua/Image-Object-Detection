@@ -25,9 +25,9 @@ def test_calculate_similarity(matching_engine):
 
 def test_execute_matching(matching_engine):
     image = np.array([1, 2, 3]).flatten().reshape(1, -1)
-    image_dict = {
-        "example.jpg": [1, 2, 3],
-    }
+    image_dict = (
+        ("example.jpg", [1, 2, 3]),
+    )
     results = matching_engine.execute_matching(image, image_dict)
-    expected_result = {"example.jpg": 1}
+    expected_result = (("example.jpg", 1)),
     assert results == expected_result

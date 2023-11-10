@@ -111,5 +111,5 @@ def test_get_all_images_and_objects(
     sqlite_index, _, _ = sqlite_indexing_connection_cursor
 
     results = sqlite_index.get_all_images_and_objects()
-    example_result = {"example_images/image1.jpg": ["chair", "dining table"]}
+    example_result = (("example_images/image1.jpg", ["chair", "dining table"]),)
     assert results == example_result

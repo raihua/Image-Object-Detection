@@ -22,11 +22,11 @@ def output_formatter(alpha_asc_format):
 
 @pytest.fixture
 def image_data():
-    image_data = {
-        "example_images/image3.jpg": 1.0000,
-        "example_images/image6.jpg": 0.5000,
-        "example_images/image1.jpg": 0.4082,
-    }
+    image_data = (
+        ("example_images/image3.jpg", 1.0000),
+        ("example_images/image6.jpg", 0.5000),
+        ("example_images/image1.jpg", 0.4082),
+    )
 
     return image_data
 
@@ -36,8 +36,8 @@ def test_set_strategy(output_formatter, num_desc_format):
     assert isinstance(output_formatter._OutputFormatter__strategy, NumDescendingFormat)
 
 
-def test_format_and_convert_to_tuple(output_formatter, image_data):
-    result = output_formatter.format_and_convert_to_tuple(image_data)
+def test_format_data(output_formatter, image_data):
+    result = output_formatter.format_data(image_data)
 
     expected_result = (
         ("example_images/image1.jpg", 0.4082),

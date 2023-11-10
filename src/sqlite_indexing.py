@@ -60,6 +60,6 @@ class SQLiteIndexing(IndexStrategy):
 
         # result is in form {"path": "a, b, c"}
         # this converts it to {"path": ["a", "b", "C"]}
-        result_dict = {row[0]: row[1].split(",") if row[1] else [] for row in result}
+        result_tuple = tuple((row[0], row[1].split(",") if row[1] else []) for row in result)
 
-        return result_dict
+        return result_tuple
