@@ -18,6 +18,7 @@ class ImageAccess:
 
         return image_data
 
+    # TODO assess whether this is needed
     def flatten_and_reshape_image(self, image_data):
         flattened_image = image_data.flatten().reshape(1, -1)
         return flattened_image
