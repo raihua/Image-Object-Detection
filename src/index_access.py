@@ -5,9 +5,6 @@ class IndexAccess:
     def __init__(self, strategy):
         self.__strategy = strategy
 
-    def get_strategy(self):
-        return self.__strategy
-
     def set_strategy(self, strategy):
         self.__strategy = strategy
 
@@ -23,4 +20,4 @@ class IndexAccess:
     def get_images_with_some_objects(self, objects):
         return self.__strategy.get_images_with_some_objects(objects)
 
-    strategy = property(get_strategy, set_strategy)
+    strategy = property(set_strategy)
