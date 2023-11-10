@@ -4,9 +4,6 @@ from numpy import ndarray
 class ObjectDetection:
     def __init__(self, detector_model):
         self.__detector_model  = detector_model
-
-    def get_model(self):
-        return self.__detector_model
     
     def set_model(self, model):
         self.__detector_model = model
@@ -26,4 +23,4 @@ class ObjectDetection:
     def detect_objects(self, image):
         return self.__detector_model.detect_objects(image)
 
-    detector_model = property(get_model, set_model)
+    detector_model = property(set_model)
