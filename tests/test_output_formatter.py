@@ -50,7 +50,7 @@ def test_format_data(output_formatter, image_data):
 
 def test_validate_k_no_exception(output_formatter, image_data):
     k = 3
-    result = output_formatter.validate_k(k, image_data)
+    result = output_formatter._OutputFormatter__validate_k(k, image_data)
     assert result == k
 
 
@@ -59,7 +59,7 @@ def test_validate_k_less_than_2_exception(output_formatter, image_data):
     with pytest.raises(
         ValueError, match="k must be greater than or equal to 2 if provided"
     ):
-        output_formatter.validate_k(k, image_data)
+        output_formatter._OutputFormatter__validate_k(k, image_data)
 
 
 def test_get_top_k_results_alpha_acs(output_formatter, image_data):
@@ -70,7 +70,7 @@ def test_get_top_k_results_alpha_acs(output_formatter, image_data):
     )
 
     k = 2
-    result = output_formatter.get_top_k_results(formatted_data, k)
+    result = output_formatter._OutputFormatter__get_top_k_results(formatted_data, k)
 
     expected_result = (
         ("example_images/image1.jpg", 0.4082),

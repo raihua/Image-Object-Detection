@@ -5,7 +5,7 @@ class OutputFormatter:
     def set_strategy(self, strategy):
         self.__strategy = strategy
 
-    def validate_k(self, k, image_data):
+    def __validate_k(self, k, image_data):
         if k is not None:
             k = min(k, len(image_data))
             if k < 2:
@@ -13,17 +13,17 @@ class OutputFormatter:
         return k
 
     def format_data(self, image_data, k=None):
-        k = self.validate_k(k, image_data)
+        k = self.__validate_k(k, image_data)
 
         formatted_data = self.__strategy.format_data(image_data)
 
         if k is not None:
-            k_results_data = self.get_top_k_results(formatted_data, k)
+            k_results_data = self.__get_top_k_results(formatted_data, k)
             return k_results_data
         else:
             return formatted_data
 
-    def get_top_k_results(self, image_data, k):
+    def __get_top_k_results(self, image_data, k):
         if isinstance(image_data, tuple):
             k_results = image_data[:k]
         else:

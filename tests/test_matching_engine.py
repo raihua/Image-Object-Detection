@@ -19,7 +19,7 @@ def test_set_strategy(matching_engine):
 def test_calculate_similarity(matching_engine):
     original_array = np.array([[1, 2], [3, 4]])
     flattened_array = original_array.flatten().reshape(1, -1)
-    result = matching_engine.calculate_similarity(flattened_array, flattened_array)
+    result = matching_engine._MatchingEngine__calculate_similarity(flattened_array, flattened_array)
     assert result == pytest.approx(1)
 
 
