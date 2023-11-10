@@ -20,11 +20,11 @@ def image_data():
 
 def test_format_data(format_alphabet_asc, image_data):
     result = format_alphabet_asc.format_data(image_data)
-
-    expected_result = {
-        "example_images/image1.jpg": 0.4082,
-        "example_images/image3.jpg": 1.0000,
-        "example_images/image6.jpg": 0.5000,
-    }
+    
+    expected_result = (
+        ("example_images/image1.jpg", 0.4082),
+        ("example_images/image3.jpg", 1.0000),
+        ("example_images/image6.jpg", 0.5000),
+    )
 
     assert result == expected_result

@@ -7,7 +7,7 @@ class AlphabeticalAscendingFormat(FormatStrategy):
         super().__init__()
 
     def format_data(self, result_data):
-        sorted_result_data = dict(
-            sorted(result_data.items(), key=lambda item: item[0], reverse=True)
+        sorted_result_data = tuple(
+            sorted(result_data.items(), key=lambda item: item[0], reverse=False)
         )
         return sorted_result_data
