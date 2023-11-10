@@ -17,3 +17,7 @@ class BaseDetectorModel(ABC):
     @abstractmethod
     def add_labels(self, labels):
         pass
+
+    @abstractmethod
+    def get_labels(self):
+        pass
