@@ -14,6 +14,7 @@ class MatchingEngine:
     def execute_matching(self, image1, images_dict):
         results = {}
         for img_path, detected_objs in images_dict.items():
+            # TODO might not need flatten if we have encode from object detection.
             image2_vector = np.array(detected_objs).flatten().reshape(1, -1)
             similarity_score = self.calculate_similarity(image1, image2_vector)
             results[img_path] = similarity_score
