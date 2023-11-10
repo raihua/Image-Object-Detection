@@ -8,4 +8,5 @@ class CosineSimilarity(SimilarityStrategy):
 
     def calculate_similarity(self, image, image_compared):
         similarity = smp.cosine_similarity(image, image_compared)
-        return similarity
+        float_similarity = similarity[0, 0]
+        return float_similarity
