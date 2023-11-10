@@ -26,7 +26,9 @@ def insert_initial_data(index_access_sqlite_index_cursor):
 def test_set_strategy(index_access_sqlite_index_cursor):
     index_access, sqlite_indexing, cursor = index_access_sqlite_index_cursor
     index_access.set_strategy(sqlite_indexing)
-
+    
+    strategy = index_access._IndexAccess__strategy
+    assert isinstance(strategy, SQLiteIndexing)
 
 def test_add_image_path(index_access_sqlite_index_cursor):
     index_access, sqlite_indexing, cursor = index_access_sqlite_index_cursor
