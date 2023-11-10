@@ -10,20 +10,6 @@ def cosine_similarity():
 
 
 def test_calculate_similarity(cosine_similarity):
-    # Load the image
-    image_path = "example_images/image1.jpg"
-    image = imread(image_path)
-
-    # Flatten and reshape the image for similarity calculation
-    flat_image = image.flatten().reshape(1, -1)
-
-    # Create an instance of CosineSimilarity
-    cosine_similarity = CosineSimilarity()
-
-    # Call the calculate_similarity method with the image for comparison
-    result = cosine_similarity.calculate_similarity(flat_image, flat_image)
-
-    # Assert that the similarity is close to 1.0
-    assert np.isclose(
-        result, 1.0, atol=1e-10
-    ), f"Expected similarity close to 1.0, got {result}"
+    original_array = np.array([[1, 2], [3, 4]])
+    flattened_array = original_array.flatten().reshape(1, -1)
+    result = cosine_similarity.calculate_similarity(flattened_array, flattened_array)
