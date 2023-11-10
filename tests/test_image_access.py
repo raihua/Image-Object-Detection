@@ -14,14 +14,14 @@ def test_read_image(image_access):
 
 
 def test_flatten_and_reshape_image(image_access):
-    # Test input: 2x3 image
-    image_data = np.array([[1, 2, 3], [4, 5, 6]])
+    vector = [
+        [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+        [[10, 11, 12], [13, 14, 15], [16, 17, 18]],
+    ]
+    numpy_array = np.array(vector)
 
-    # Expected output: Flattened and reshaped to a 1D array
-    expected_result = np.array([1, 2, 3, 4, 5, 6]).reshape(1, -1)
+    flat_vector = image_access.flatten_and_reshape_image(numpy_array)
 
-    # Call the function
-    result = image_access.flatten_and_reshape_image(image_data)
+    expected_vector = [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]]
 
-    # Assertion
-    assert np.array_equal(result, expected_result)
+    assert np.array_equal(flat_vector, expected_vector)
