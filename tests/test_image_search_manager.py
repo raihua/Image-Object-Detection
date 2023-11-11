@@ -20,7 +20,7 @@ def insert_6_images(image_search_manager):
 def test_injest_image(image_search_manager):
     file_path = "example_images/image1.jpg"
     result = image_search_manager.add(file_path)
-    expected_result = "Detected objects chair,dining table,potted plant"
+    expected_result = "Detected objects chair,dining table,potted plant\n"
     assert result == expected_result
 
 
@@ -33,7 +33,7 @@ def test_search_all(image_search_manager, insert_6_images):
 
 def test_search_some(image_search_manager, insert_6_images):
     search_terms = ("car", "person")
-    expected_result = """example_images/image2.jpg: car,person,truck\nexample_images/image3.jpg: chair,person\nexample_images/image4.jpg: car\nexample_images/image5.jpg: car,person,traffic light\n4 matches found."""
+    expected_result = """example_images/image2.jpg: car,person,truck\nexample_images/image3.jpg: chair,person\nexample_images/image4.jpg: car\nexample_images/image5.jpg: car,person,traffic light\n4 matches found.\n"""
     result = image_search_manager.search(False, search_terms)
     assert result == expected_result
 
