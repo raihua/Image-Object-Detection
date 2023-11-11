@@ -55,11 +55,14 @@ class ImageSearchManager:
         encoded_objects = self.__object_detection.encode_labels(objects_detected)
 
         
-        encoded_images_data = [(path, [self.__object_detection.encode_labels(label) for label in objects]) for path, objects in all_images_objects]
+        encoded_all_images_objects = {}
+        for path, labels in all_images_objects.items():
+            encoded_labels = self.__object_detection.encode_labels(labels)
+            encoded_all_images_objects[path] = encoded_labels
 
         
         matching_results = self.__matching_engine.execute_matching(
-            encoded_objects, encoded_images_data
+            encoded_objects, encoded_all_images_objects
         )
         result_str = self.__output_formatter.format_data(matching_results, k)
         return result_str
