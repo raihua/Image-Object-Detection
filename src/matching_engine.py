@@ -2,8 +2,8 @@ import numpy as np
 
 
 class MatchingEngine:
-    def __init__(self, strategy):
-        self.__strategy = strategy
+    def __init__(self):
+        self.__strategy = None
 
     def set_strategy(self, strategy):
         self.__strategy = strategy
