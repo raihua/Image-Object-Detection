@@ -1,4 +1,4 @@
-from format_strategy import FormatStrategy
+from src.format_strategy import FormatStrategy
 
 
 class NumDescendingFormat(FormatStrategy):

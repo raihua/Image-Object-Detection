@@ -6,19 +6,19 @@ from src.num_descending_format import NumDescendingFormat
 
 @pytest.fixture
 def alpha_asc_format():
-    return AlphabeticalAscendingFormat()
+    asc_format = AlphabeticalAscendingFormat()
+    yield asc_format
 
 
 @pytest.fixture
 def num_desc_format():
-    return NumDescendingFormat()
+    num_desc_format = NumDescendingFormat()
+    yield num_desc_format
 
 
 @pytest.fixture
-def output_formatter(num_desc_format):
-    strategy = num_desc_format
+def output_formatter():
     output_formatter = OutputFormatter()
-    output_formatter.set_strategy(strategy)
     yield output_formatter
 
 
@@ -29,7 +29,6 @@ def float_image_data():
         "example_images/image6.jpg": 0.5000,
         "example_images/image1.jpg": 0.4082,
     }
-
     return float_image_data
 
 
@@ -44,9 +43,9 @@ def str_image_data():
     return str_image_data
 
 
-def test_set_strategy(output_formatter, num_desc_format):
-    output_formatter.set_strategy(num_desc_format)
-    assert isinstance(output_formatter._OutputFormatter__strategy, NumDescendingFormat)
+def test_set_strategy(output_formatter, alpha_asc_format):
+    output_formatter.set_strategy(alpha_asc_format)
+    assert isinstance(output_formatter._OutputFormatter__strategy, AlphabeticalAscendingFormat)
 
 
 def test_format_data(output_formatter, str_image_data, alpha_asc_format):
@@ -59,16 +58,15 @@ example_images/image3.jpg: chair,person"""
 
     assert result == expected_result
 
+def test_get_top_k_results(output_formatter, str_image_data):
+    k = 2
 
-def test_validate_k_no_exception(output_formatter, float_image_data):
-    k = 3
-    result = output_formatter._OutputFormatter__validate_k(k, float_image_data)
-    assert result == k
+    expected_result = {
+        "example_images/image3.jpg": ["person", "chair"],
+        "example_images/image2.jpg": ["truck", "person", "car"],
+    }
 
+    result = output_formatter._OutputFormatter__get_top_k_results(str_image_data, 2)
 
-def test_validate_k_less_than_2_exception(output_formatter, float_image_data):
-    k = 1
-    with pytest.raises(
-        ValueError, match="k must be greater than or equal to 2 if provided"
-    ):
-        output_formatter._OutputFormatter__validate_k(k, float_image_data)
+    assert result == expected_result
+

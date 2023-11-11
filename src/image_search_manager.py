@@ -1,14 +1,14 @@
-from output_formatter import OutputFormatter
-from object_detection import ObjectDetection
-from index_access import IndexAccess
-from image_access import ImageAccess
-from matching_engine import MatchingEngine
+from src.output_formatter import OutputFormatter
+from src.object_detection import ObjectDetection
+from src.index_access import IndexAccess
+from src.image_access import ImageAccess
+from src.matching_engine import MatchingEngine
 
-from num_descending_format import NumDescendingFormat
-from alphabetical_ascending_format import AlphabeticalAscendingFormat
-from sqlite_indexing import SQLiteIndexing
-from mobile_net_detector import MobileNetDetector
-from cosine_similarity import CosineSimilarity
+from src.num_descending_format import NumDescendingFormat
+from src.alphabetical_ascending_format import AlphabeticalAscendingFormat
+from src.sqlite_indexing import SQLiteIndexing
+from src.mobile_net_detector import MobileNetDetector
+from src.cosine_similarity import CosineSimilarity
 
 import sqlite3
 
@@ -21,7 +21,7 @@ class ImageSearchManager:
         self.__image_access = ImageAccess()
         self.__matching_engine = MatchingEngine()
 
-        self.__index_access.set_strategy(SQLiteIndexing(sqlite3.connect(":memory:")))
+        self.__index_access.set_strategy(SQLiteIndexing(sqlite3.connect("memory.db")))
         self.__object_detection.set_model(MobileNetDetector())
 
     def add(self, image_path) -> str:

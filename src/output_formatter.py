@@ -1,5 +1,5 @@
-from alphabetical_ascending_format import AlphabeticalAscendingFormat
-from num_descending_format import NumDescendingFormat
+from src.alphabetical_ascending_format import AlphabeticalAscendingFormat
+from src.num_descending_format import NumDescendingFormat
 class OutputFormatter:
     def __init__(self):
         self.__strategy = None
@@ -8,16 +8,16 @@ class OutputFormatter:
         self.__strategy = strategy
 
     def format_data(self, image_data, k=None) -> str:
-        formatted_data = self.__strategy.format_data(image_data)
 
-        k = self.__validate_k(k, formatted_data)  # Validate k using the formatted data
+        formatted_data = self.__strategy.format_data(image_data)
 
         if k is not None:
             k_results_data = self.__get_top_k_results(formatted_data, k)
         else:
             k_results_data = formatted_data
 
-        formatted_str = ""
+        formatted_str = None
+
         if isinstance(self.__strategy, AlphabeticalAscendingFormat):
             formatted_str = "\n".join(
                 "{}: {}".format(filename, ",".join(objects))
@@ -28,15 +28,14 @@ class OutputFormatter:
                 "{} {}".format(value, filename)
                 for filename, value in k_results_data.items()
             )
-
+        else:
+            formatted_str = "\n".join(
+                "{}: {}".format(filename, ",".join(objects))
+                for filename, objects in k_results_data.items()
+            )
+        
         return formatted_str
 
-    def __validate_k(self, k, image_data) -> int:
-        if k is not None:
-            k = min(k, len(image_data))
-            if k < 2:
-                raise ValueError("k must be greater than or equal to 2 if provided")
-        return k
 
     def __get_top_k_results(self, image_data, k) -> dict:
         if k is not None:

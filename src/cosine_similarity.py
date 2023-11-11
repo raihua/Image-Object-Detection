@@ -1,5 +1,5 @@
 import sklearn.metrics.pairwise as smp
-from similarity_strategy import SimilarityStrategy
+from src.similarity_strategy import SimilarityStrategy
 
 
 class CosineSimilarity(SimilarityStrategy):
