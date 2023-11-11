@@ -6,14 +6,13 @@ class AlphabeticalAscendingFormat(FormatStrategy):
         super().__init__()
 
     def format_data(self, result_data) -> str:
-        sorted_result_data = tuple(
-            # Sorts tuples in alphabetical order based on item[0] (path),
-            # while also sorting the detected object list alphabetically.
-            (item[0], sorted(item[1])) for item in sorted(result_data, key=lambda item: item[0])
-        )
+        # Sort the dictionary items by keys (image paths)
+        sorted_result_data = {
+            key: sorted(value) for key, value in sorted(result_data.items())
+        }
 
         result_str = "\n".join(
             "{}: {}".format(filename, ",".join(objects_list))
-            for filename, objects_list in sorted_result_data
+            for filename, objects_list in sorted_result_data.items()
         )
         return result_str
