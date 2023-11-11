@@ -8,10 +8,10 @@ class MatchingEngine:
     def set_strategy(self, strategy):
         self.__strategy = strategy
 
-    def __calculate_similarity(self, flat_ndarray1, flat_ndarray2):
+    def __calculate_similarity(self, flat_ndarray1, flat_ndarray2) -> float:
         return self.__strategy.calculate_similarity(flat_ndarray1, flat_ndarray2)
 
-    def execute_matching(self, image1, images_tuple):
+    def execute_matching(self, image1, images_tuple) -> tuple:
         results = []
         for img_path, detected_objs in images_tuple:
             # TODO might not need flatten if we have encode from object detection.

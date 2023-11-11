@@ -11,13 +11,13 @@ class IndexStrategy(ABC):
         pass
 
     @abstractmethod
-    def get_images_with_all_objects(self, objects):
+    def get_images_with_all_objects(self, objects) -> list:
         pass
 
     @abstractmethod
-    def get_images_with_some_objects(self, objects):
+    def get_images_with_some_objects(self, objects) -> list:
         pass
 
     @abstractmethod
-    def get_all_images_and_objects(self):
+    def get_all_images_and_objects(self) -> tuple:
         pass

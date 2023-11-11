@@ -1,15 +1,16 @@
 import matplotlib.image as mpimg
+import numpy as np
 import os
 
 
 class ImageAccess:
-    def read_image(self, path):
+    def read_image(self, path) -> np.ndarray:
         self.__validate_directory(path)
         image_data = mpimg.imread(path)
         return image_data
 
     # TODO assess whether this is needed
-    def flatten_and_reshape_image(self, image_data):
+    def flatten_and_reshape_image(self, image_data) -> np.ndarray:
         flattened_image = image_data.flatten().reshape(1, -1)
         return flattened_image
 

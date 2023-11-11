@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class BaseDetectorModel(ABC):
     @abstractmethod
-    def encode_labels(self, labels):
+    def encode_labels(self, labels) -> list:
         pass
 
     @abstractmethod
@@ -11,7 +11,7 @@ class BaseDetectorModel(ABC):
         pass
 
     @abstractmethod
-    def detect_objects(self, image):
+    def detect_objects(self, image) -> set:
         pass
 
     @abstractmethod
@@ -19,5 +19,5 @@ class BaseDetectorModel(ABC):
         pass
 
     @abstractmethod
-    def get_labels(self):
+    def get_labels(self) -> dict:
         pass

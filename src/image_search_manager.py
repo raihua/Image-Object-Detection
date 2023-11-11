@@ -12,8 +12,14 @@ from mobile_net_detector import MobileNetDetector
 
 class ImageSearchManager:
     def __init__(self):
-        self.output_formatter = OutputFormatter()
-        self.object_detection = ObjectDetection()
-        self.index_access = IndexAccess()
-        self.image_access = ImageAccess()
-        self.matching_engine = MatchingEngine()
+        self.__output_formatter = OutputFormatter()
+        self.__object_detection = ObjectDetection()
+        self.__index_access = IndexAccess()
+        self.__image_access = ImageAccess()
+        self.__matching_engine = MatchingEngine()
+
+    def add(self, image_path) -> str:
+        self.__index_access.add_image_path(image_path)
+        image_data = self.__image_access.read_image(image_path)
+        detected_objects = self.__object_detection.detect_objects(image_data)
+        self.__index_access.add_detected_objects(image_path, detected_objects)
