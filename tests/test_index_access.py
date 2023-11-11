@@ -9,7 +9,8 @@ def index_access_sqlite_index_cursor():
     conn = sqlite3.connect(":memory:")
     sqlite_indexing = SQLiteIndexing(conn)
     # Creating an in-memory SQLite database and executing table creation statements.
-    index_access = IndexAccess(sqlite_indexing)
+    index_access = IndexAccess()
+    index_access.set_strategy(sqlite_indexing)
     cursor = conn.cursor()
 
     yield index_access, sqlite_indexing, cursor
@@ -66,10 +67,10 @@ def test_get_images_with_all_objects(
 ):
     index_access, sqlite_indexing, cursor = index_access_sqlite_index_cursor
 
-    objects_to_find = ["chair", "dining table"]
-    result_paths = index_access.get_images_with_all_objects(objects_to_find)
-    expected_image_paths = ["example_images/image1.jpg"]
-    assert result_paths == expected_image_paths
+    objects_to_find = ("chair", "dining table")
+    results = index_access.get_images_with_all_objects(objects_to_find)
+    example_result = (("example_images/image1.jpg", ["chair", "dining table"]),)
+    assert results == example_result
 
 
 def test_get_images_with_some_objects(
@@ -77,7 +78,7 @@ def test_get_images_with_some_objects(
 ):
     index_access, sqlite_indexing, cursor = index_access_sqlite_index_cursor
 
-    objects_to_find = ["potted plant", "dining table"]
+    objects_to_find = ("potted plant", "dining table")
     result_paths = index_access.get_images_with_some_objects(objects_to_find)
-    expected_image_paths = ["example_images/image1.jpg"]
-    assert result_paths == expected_image_paths
+    expected_image_and_paths = (("example_images/image1.jpg", ["dining table"]),)
+    assert result_paths == expected_image_and_paths
