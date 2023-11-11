@@ -1,8 +1,18 @@
 import click
+import sys
+import os
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(project_root)
+from src.image_search_manager import ImageSearchManager
+
+image_search_manager = ImageSearchManager()
+
 
 @click.group()
 def main():
     pass
+
 
 #
 # Each of the functions below is the entry point of a use case for the command line application.
@@ -10,31 +20,42 @@ def main():
 # in this file.
 #
 
+
 @main.command()
-@click.argument('image_path', type=click.Path(exists=True, dir_okay=False))
+@click.argument("image_path", type=click.Path(exists=True, dir_okay=False))
 def add(image_path):
-    """TODO add your code here"""
-    raise NotImplementedError
+    print(image_search_manager.add(image_path))
+
 
 @main.command()
-@click.option('--all/--some', default=True, show_default=True, help='List images that match all/some query terms')
-@click.argument('terms', nargs=-1, required=True)
+@click.option(
+    "--all/--some",
+    default=True,
+    show_default=True,
+    help="List images that match all/some query terms",
+)
+@click.argument("terms", nargs=-1, required=True)
 def search(all, terms):
-    """TODO add your code here"""   
-    raise NotImplementedError
+    print(image_search_manager.search(all, terms))
+
 
 @main.command()
-@click.option('--k', default=1, type=click.IntRange(1), show_default=True, help='Number of matches to return')
-@click.argument('image_path', type=click.Path(exists=True, dir_okay=False))
+@click.option(
+    "--k",
+    default=1,
+    type=click.IntRange(1),
+    show_default=True,
+    help="Number of matches to return",
+)
+@click.argument("image_path", type=click.Path(exists=True, dir_okay=False))
 def similar(k, image_path):
-    """TODO add your code here"""
-    raise NotImplementedError
+    print(image_search_manager.similar(k, image_path))
+
 
 @main.command()
 def list():
-    """TODO add your code here"""
-    raise NotImplementedError
+    print(image_search_manager.list())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
