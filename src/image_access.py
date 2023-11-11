@@ -3,17 +3,9 @@ import os
 
 
 class ImageAccess:
-    def __init__(self, path):
+    def read_image(self, path):
         self.__validate_directory(path)
-
-        self.__path = path
-
-        if not os.path.exists(path):
-            raise FileNotFoundError(f'Image file "{path}" does not exist.')
-
-    def read_image(self):
-        image_data = mpimg.imread(self.__path)
-
+        image_data = mpimg.imread(path)
         return image_data
 
     # TODO assess whether this is needed
@@ -22,6 +14,8 @@ class ImageAccess:
         return flattened_image
 
     def __validate_directory(self, path):
+        if not os.path.exists(path):
+            raise FileNotFoundError(f'Image file "{path}" does not exist.')
         # Extract the directory component
         directory = os.path.split(path)[0]
 
