@@ -17,6 +17,10 @@ def image_data():
 def test_format_data(format_alphabet_asc, image_data):
     result = format_alphabet_asc.format_data(image_data)
     
-    expected_result = 'example_images/image1.jpg: chair,dining table,potted plant\nexample_images/image2.jpg: car,person,truck\nexample_images/image3.jpg: chair,person'
+    expected_result = {
+        "example_images/image1.jpg": ["chair", "dining table", "potted plant"],
+        "example_images/image2.jpg": ["car", "person", "truck"],
+        "example_images/image3.jpg": ["chair", "person"],
+    }
 
     assert result == expected_result
