@@ -47,10 +47,19 @@ class ImageSearchManager:
     def similar(self, k, image_path):
         self.__output_formatter.set_strategy(NumDescendingFormat())
         self.__matching_engine.set_strategy(CosineSimilarity())
+
         all_images_objects = self.__index_access.get_all_images_and_objects()
+
         image_data = self.__image_access.read_image(image_path)
+        objects_detected = self.__object_detection.detect_objects(image_data)
+        encoded_objects = self.__object_detection.encode_labels(objects_detected)
+
+        
+        encoded_images_data = [(path, [self.__object_detection.encode_labels(label) for label in objects]) for path, objects in all_images_objects]
+
+        
         matching_results = self.__matching_engine.execute_matching(
-            image_data, all_images_objects
+            encoded_objects, encoded_images_data
         )
         result_str = self.__output_formatter.format_data(matching_results, k)
         return result_str

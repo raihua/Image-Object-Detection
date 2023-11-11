@@ -103,7 +103,7 @@ def test_get_images_with_some_objects(
 
     objects_to_find = ("potted plant", "dining table")
     result_image_and_path = sqlite_index.get_images_with_some_objects(objects_to_find)
-    expected_image_and_paths = (("example_images/image1.jpg", ["dining table"]),)
+    expected_image_and_paths = (('example_images/image1.jpg', ['chair', 'dining table']),)
     assert result_image_and_path == expected_image_and_paths
 
 

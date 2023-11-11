@@ -37,19 +37,19 @@ def test_search_some(image_search_manager, insert_6_images):
     result = image_search_manager.search(False, search_terms)
     assert result == expected_result
 
-# def test_similar_k_999(image_search_manager, insert_6_images):
-#     k = 999
-#     image_path = "example_images/image3.jpg"
-#     result = image_search_manager.similar(k, image_path)
-#     expected_result = """
-#     1.0000 example_images/image3.jpg\n
-#     0.5000 example_images/image6.jpg\n
-#     0.4082 example_images/image1.jpg\n
-#     0.4082 example_images/image2.jpg\n
-#     0.4082 example_images/image5.jpg\n
-#     0.0000 example_images/image4.jpg\n
-#     """
-#     assert result == expected_result
+def test_similar_k_999(image_search_manager, insert_6_images):
+    k = 999
+    image_path = "example_images/image3.jpg"
+    result = image_search_manager.similar(k, image_path)
+    expected_result = """
+    1.0000 example_images/image3.jpg\n
+    0.5000 example_images/image6.jpg\n
+    0.4082 example_images/image1.jpg\n
+    0.4082 example_images/image2.jpg\n
+    0.4082 example_images/image5.jpg\n
+    0.0000 example_images/image4.jpg\n
+    """
+    assert result == expected_result
 
 # def test_similar_k_3(image_search_manager, insert_6_images):
 #     k = 3
