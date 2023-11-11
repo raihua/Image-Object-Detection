@@ -60,8 +60,6 @@ def test_add_detected_objects(index_access_sqlite_index_cursor):
 
     result = cursor.fetchone()
     assert result[0] == detected_object
-
-
 def test_get_images_with_all_objects(
     index_access_sqlite_index_cursor, insert_initial_data
 ):
@@ -69,7 +67,7 @@ def test_get_images_with_all_objects(
 
     objects_to_find = ("chair", "dining table")
     results = index_access.get_images_with_all_objects(objects_to_find)
-    example_result = (("example_images/image1.jpg", ["chair", "dining table"]),)
+    example_result = {"example_images/image1.jpg": ["chair", "dining table"]}
     assert results == example_result
 
 
@@ -80,7 +78,7 @@ def test_get_images_with_some_objects(
 
     objects_to_find = ("potted plant", "dining table")
     result_paths = index_access.get_images_with_some_objects(objects_to_find)
-    expected_image_and_paths = (('example_images/image1.jpg', ['chair', 'dining table']),)
+    expected_image_and_paths = {'example_images/image1.jpg': ['chair', 'dining table']}
     assert result_paths == expected_image_and_paths
 
 
@@ -90,5 +88,5 @@ def test_get_all_images_and_objects(
     index_access, sqlite_indexing, cursor = index_access_sqlite_index_cursor
 
     results = index_access.get_all_images_and_objects()
-    example_result = (("example_images/image1.jpg", ["chair", "dining table"]),)
+    example_result = {"example_images/image1.jpg": ["chair", "dining table"]}
     assert results == example_result
