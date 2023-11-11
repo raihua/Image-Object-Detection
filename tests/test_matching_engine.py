@@ -6,8 +6,9 @@ from src.cosine_similarity import CosineSimilarity
 
 @pytest.fixture
 def matching_engine():
-    strategy = CosineSimilarity()
-    yield MatchingEngine(strategy)
+    matching_engine = MatchingEngine()
+    matching_engine.set_strategy(CosineSimilarity())
+    yield matching_engine
 
 
 def test_set_strategy(matching_engine):

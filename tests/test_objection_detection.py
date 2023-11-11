@@ -8,7 +8,9 @@ from src.image_access import ImageAccess
 @pytest.fixture
 def object_detection():
     strategy = MobileNetDetector()
-    yield ObjectDetection(strategy)
+    object_detection = ObjectDetection()
+    object_detection.set_model(strategy)
+    yield object_detection
 
 
 def test_set_model(object_detection):
@@ -38,7 +40,7 @@ def test_load_model(object_detection):
 
 def test_detect_objects(object_detection):
     file_path = "example_images/image4.jpg"
-    image_access = ImageAccess(file_path)
-    image_data = image_access.read_image()
+    image_access = ImageAccess()
+    image_data = image_access.read_image(file_path)
     result = object_detection.detect_objects(image_data)
     assert "car" in result
