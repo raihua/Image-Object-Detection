@@ -50,17 +50,20 @@ class ImageSearchManager:
 
         all_images_objects = self.__index_access.get_all_images_and_objects()
 
-        image_data = self.__image_access.read_image(image_path)
-        objects_detected = self.__object_detection.detect_objects(image_data)
+        objects_detected = None
+        if image_path not in all_images_objects.keys():
+            image_data = self.__image_access.read_image(image_path)
+            objects_detected = self.__object_detection.detect_objects(image_data)
+        else:
+            objects_detected = all_images_objects[image_path]
+
         encoded_objects = self.__object_detection.encode_labels(objects_detected)
 
-        
         encoded_all_images_objects = {}
         for path, labels in all_images_objects.items():
             encoded_labels = self.__object_detection.encode_labels(labels)
             encoded_all_images_objects[path] = encoded_labels
 
-        
         matching_results = self.__matching_engine.execute_matching(
             encoded_objects, encoded_all_images_objects
         )

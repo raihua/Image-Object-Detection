@@ -11,7 +11,6 @@ class MatchingEngine:
     def __calculate_similarity(self, flat_ndarray1, flat_ndarray2) -> float:
         return self.__strategy.calculate_similarity(flat_ndarray1, flat_ndarray2)
 
-    
     def execute_matching(self, image1, encoded_objects_with_paths) -> dict:
         results = {}
         image1_array = np.array(image1)
@@ -21,7 +20,9 @@ class MatchingEngine:
             detected_objs_array = np.array(detected_objs)
 
             detected_objs_reshaped = detected_objs_array.reshape(1, -1)
-            
-            similarity_score = self.__calculate_similarity(image1_array_reshaped, detected_objs_reshaped)
+
+            similarity_score = self.__calculate_similarity(
+                image1_array_reshaped, detected_objs_reshaped
+            )
             results[img_path] = float(similarity_score)
         return results

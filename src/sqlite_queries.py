@@ -53,3 +53,11 @@ FROM Images AS I
 LEFT JOIN Detected_Objects AS DO ON I.image_path = DO.image_path
 GROUP BY I.image_path;
 """
+
+SELECT_COUNT_PATH = """
+SELECT COUNT(*) FROM images WHERE image_path = ?
+"""
+
+SELECT_COUNT_DETECTED = """
+SELECT COUNT(*) FROM detected_objects WHERE image_path = ? AND detected_object = ?
+"""

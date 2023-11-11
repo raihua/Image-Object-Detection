@@ -10,5 +10,5 @@ class NumDescendingFormat(FormatStrategy):
         sorted_result_data = dict(
             sorted(result_data.items(), key=lambda item: item[1], reverse=True)
         )
-        
+
         return sorted_result_data

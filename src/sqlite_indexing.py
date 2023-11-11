@@ -7,6 +7,8 @@ from src.sqlite_queries import (
     SELECT_INCLUDE_SOME_DETECTED,
     INSERT_DETECTED_OBJECTS_PARAM_QUERY,
     SELECT_ALL_IMAGES_OBJECTS_QUERY,
+    SELECT_COUNT_PATH,
+    SELECT_COUNT_DETECTED,
 )
 
 
@@ -24,8 +26,7 @@ class SQLiteIndexing(IndexStrategy):
 
     def add_image_path(self, path):
         # Check if the image path already exists in the database
-        query = "SELECT COUNT(*) FROM images WHERE image_path = ?"
-        count = self.__cursor.execute(query, (path,)).fetchone()[0]
+        count = self.__cursor.execute(SELECT_COUNT_PATH, (path,)).fetchone()[0]
 
         if count == 0:
             self.__cursor.execute(INSERT_IMAGE_PATH_PARAM_QUERY, (path,))
@@ -37,11 +38,14 @@ class SQLiteIndexing(IndexStrategy):
 
         for obj in objects:
             # Check if the detected object already exists for the image
-            query = "SELECT COUNT(*) FROM detected_objects WHERE image_path = ? AND detected_object = ?"
-            count = self.__cursor.execute(query, (image_path, obj)).fetchone()[0]
+            count = self.__cursor.execute(
+                SELECT_COUNT_DETECTED, (image_path, obj)
+            ).fetchone()[0]
 
             if count == 0:
-                self.__cursor.execute(INSERT_DETECTED_OBJECTS_PARAM_QUERY, (image_path, obj))
+                self.__cursor.execute(
+                    INSERT_DETECTED_OBJECTS_PARAM_QUERY, (image_path, obj)
+                )
                 self.__conn.commit()
 
     def get_images_with_all_objects(self, objects) -> dict:
