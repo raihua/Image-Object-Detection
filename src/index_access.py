@@ -18,6 +18,6 @@ class IndexAccess:
         return self.__strategy.get_images_with_some_objects(objects)
 
     def get_all_images_and_objects(self) -> tuple:
-        return self.__strategy.get_all_images_and_objects(self)
+        return self.__strategy.get_all_images_and_objects()
 
     strategy = property(set_strategy)
