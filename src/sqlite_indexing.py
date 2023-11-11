@@ -33,7 +33,7 @@ class SQLiteIndexing(IndexStrategy):
         self.__cursor.executemany(INSERT_DETECTED_OBJECTS_PARAM_QUERY, values)
         self.__conn.commit()
 
-    def get_images_with_all_objects(self, objects) -> tuple:
+    def get_images_with_all_objects(self, objects) -> dict:
         # Construct the query by dynamically inserting the objects list into the query template
         query = SELECT_INCLUDE_ALL_DETECTED.format(
             ", ".join(["?"] * len(objects)), len(objects)
@@ -41,33 +41,27 @@ class SQLiteIndexing(IndexStrategy):
 
         result = self.__cursor.execute(query, objects).fetchall()
 
-        result_tuple = tuple(
-            (row[0], row[1].split(",") if row[1] else []) for row in result
-        )
+        result_dict = {row[0]: row[1].split(",") if row[1] else [] for row in result}
 
-        return result_tuple
+        return result_dict
 
-    def get_images_with_some_objects(self, objects) -> tuple:
+    def get_images_with_some_objects(self, objects) -> dict:
         # Construct the query by dynamically inserting the objects list into the query template
         query = SELECT_INCLUDE_SOME_DETECTED.format(", ".join(["?"] * len(objects)))
 
         result = self.__cursor.execute(query, objects).fetchall()
 
-        result_tuple = tuple(
-            (row[0], row[1].split(",") if row[1] else []) for row in result
-        )
+        result_dict = {row[0]: row[1].split(",") if row[1] else [] for row in result}
 
-        return result_tuple
+        return result_dict
 
-    def get_all_images_and_objects(self) -> tuple:
+    def get_all_images_and_objects(self) -> dict:
         query = SELECT_ALL_IMAGES_OBJECTS_QUERY
 
         result = self.__cursor.execute(query).fetchall()
 
         # result is in form {"path": "a, b, c"}
         # this converts it to {"path": ["a", "b", "C"]}
-        result_tuple = tuple(
-            (row[0], row[1].split(",") if row[1] else []) for row in result
-        )
+        result_dict = {row[0]: row[1].split(",") if row[1] else [] for row in result}
 
-        return result_tuple
+        return result_dict

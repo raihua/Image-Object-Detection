@@ -90,9 +90,7 @@ def test_get_images_with_all_objects(
 
     objects_to_find = ("chair", "dining table")
     result_image_and_path = sqlite_index.get_images_with_all_objects(objects_to_find)
-    expected_image_and_paths = (("example_images/image1.jpg", ["chair", "dining table"]),)
-    print(result_image_and_path)
-    print(expected_image_and_paths)
+    expected_image_and_paths = {"example_images/image1.jpg": ["chair", "dining table"]}
     assert result_image_and_path == expected_image_and_paths
 
 
@@ -103,7 +101,7 @@ def test_get_images_with_some_objects(
 
     objects_to_find = ("potted plant", "dining table")
     result_image_and_path = sqlite_index.get_images_with_some_objects(objects_to_find)
-    expected_image_and_paths = (('example_images/image1.jpg', ['chair', 'dining table']),)
+    expected_image_and_paths = {"example_images/image1.jpg": ["chair", "dining table"]}
     assert result_image_and_path == expected_image_and_paths
 
 
@@ -113,5 +111,5 @@ def test_get_all_images_and_objects(
     sqlite_index, _, _ = sqlite_indexing_connection_cursor
 
     results = sqlite_index.get_all_images_and_objects()
-    example_result = (("example_images/image1.jpg", ["chair", "dining table"]),)
+    example_result = {"example_images/image1.jpg": ["chair", "dining table"]}
     assert results == example_result
