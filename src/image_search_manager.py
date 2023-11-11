@@ -8,11 +8,12 @@ from num_descending_format import NumDescendingFormat
 from alphabetical_ascending_format import AlphabeticalAscendingFormat
 from sqlite_indexing import SQLiteIndexing
 from mobile_net_detector import MobileNetDetector
+from cosine_similarity import CosineSimilarity
 
 import sqlite3
 
 
-class ImageSearchManager():
+class ImageSearchManager:
     def __init__(self):
         self.__output_formatter = OutputFormatter()
         self.__object_detection = ObjectDetection()
@@ -30,12 +31,26 @@ class ImageSearchManager():
         self.__index_access.add_detected_objects(image_path, detected_objects)
         result_str = "Detected objects " + ",".join(detected_objects)
         return result_str
-    
-    def search(self, k, terms) -> str:
-        result_str = None
-        if k:
-            result_str = self.__index_access.get_images_with_all_objects(terms)
-        else:
-            result_str = self.__index_access.get_images_with_some_objects(terms)
 
-        
+    def search(self, option, terms) -> str:
+        result_img_objects = None
+        if option:
+            result_img_objects = self.__index_access.get_images_with_all_objects(terms)
+        else:
+            result_img_objects = self.__index_access.get_images_with_some_objects(terms)
+
+        self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
+        result_str = self.__output_formatter.format_data(result_img_objects)
+        result_str += f"\n{len(result_img_objects)} matches found."
+        return result_str
+
+    def similar(self, k, image_path):
+        self.__output_formatter.set_strategy(NumDescendingFormat())
+        self.__matching_engine.set_strategy(CosineSimilarity())
+        all_images_objects = self.__index_access.get_all_images_and_objects()
+        image_data = self.__image_access.read_image(image_path)
+        matching_results = self.__matching_engine.execute_matching(
+            image_data, all_images_objects
+        )
+        result_str = self.__output_formatter.format_data(matching_results, k)
+        return result_str

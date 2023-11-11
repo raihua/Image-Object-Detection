@@ -6,6 +6,7 @@ from src.image_search_manager import ImageSearchManager
 def image_search_manager():
     return ImageSearchManager()
 
+
 @pytest.fixture
 def insert_6_images(image_search_manager):
     image_search_manager.add("example_images/image3.jpg")
@@ -23,28 +24,18 @@ def test_injest_image(image_search_manager):
     assert result == expected_result
 
 
-# def test_search_all(image_search_manager):
-#     search_terms = ("car", "person")
-#     expected_result = """
-#     example_images/image2.jpg: car,person,truck\n
-#     example_images/image5.jpg: car,person,traffic light\n
-#     2 matches found.\n
-#     """
-#     result = image_search_manager.search(True, search_terms)
-#     assert result == expected_result
+def test_search_all(image_search_manager, insert_6_images):
+    search_terms = ("car", "person")
+    expected_result = """example_images/image2.jpg: car,person,truck\nexample_images/image5.jpg: car,person,traffic light\n2 matches found."""
+    result = image_search_manager.search(True, search_terms)
+    assert result.strip() == expected_result.strip()
 
 
-# def test_search_some(image_search_manager):
-#     search_terms = ("car", "person")
-#     expected_result = """
-#     example_images/image2.jpg: car,person,truck\n
-#     example_images/image3.jpg: chair,person\n
-#     example_images/image4.jpg: car\n
-#     example_images/image5.jpg: car,person,traffic light\n
-#     4 matches found.\n
-#     """
-#     result = image_search_manager.search(False, search_terms)
-#     assert result == expected_result
+def test_search_some(image_search_manager):
+    search_terms = ("car", "person")
+    expected_result = """example_images/image2.jpg: car,person,truck\nexample_images/image3.jpg: chair,person\nexample_images/image4.jpg: car\nexample_images/image5.jpg: car,person,traffic light\n4 matches found."""
+    result = image_search_manager.search(False, search_terms)
+    assert result == expected_result
 
 # def test_similar_k_999(image_search_manager, insert_6_images):
 #     k = 999
