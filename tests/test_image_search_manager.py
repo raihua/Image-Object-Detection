@@ -31,7 +31,7 @@ def test_search_all(image_search_manager, insert_6_images):
     assert result.strip() == expected_result.strip()
 
 
-def test_search_some(image_search_manager):
+def test_search_some(image_search_manager, insert_6_images):
     search_terms = ("car", "person")
     expected_result = """example_images/image2.jpg: car,person,truck\nexample_images/image3.jpg: chair,person\nexample_images/image4.jpg: car\nexample_images/image5.jpg: car,person,traffic light\n4 matches found."""
     result = image_search_manager.search(False, search_terms)
