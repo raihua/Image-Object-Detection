@@ -33,7 +33,7 @@ class SQLiteIndexing(IndexStrategy):
         self.__cursor.executemany(INSERT_DETECTED_OBJECTS_PARAM_QUERY, values)
         self.__conn.commit()
 
-    def get_images_with_all_objects(self, objects) -> list:
+    def get_images_with_all_objects(self, objects) -> tuple:
         # Construct the query by dynamically inserting the objects list into the query template
         query = SELECT_INCLUDE_ALL_DETECTED.format(
             ", ".join(["?"] * len(objects)), len(objects)
@@ -47,7 +47,7 @@ class SQLiteIndexing(IndexStrategy):
 
         return result_tuple
 
-    def get_images_with_some_objects(self, objects) -> list:
+    def get_images_with_some_objects(self, objects) -> tuple:
         # Construct the query by dynamically inserting the objects list into the query template
         query = SELECT_INCLUDE_SOME_DETECTED.format(", ".join(["?"] * len(objects)))
 
