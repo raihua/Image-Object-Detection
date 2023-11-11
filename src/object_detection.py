@@ -1,6 +1,6 @@
 class ObjectDetection:
-    def __init__(self, detector_model):
-        self.__detector_model = detector_model
+    def __init__(self):
+        self.__detector_model = None
 
     def set_model(self, model):
         self.__detector_model = model
