@@ -35,7 +35,7 @@ def test_load_model(mobile_net_detector):
 
 def test_detect_objects(mobile_net_detector):
     file_path = "example_images/image4.jpg"
-    image_access = ImageAccess(file_path)
-    image_data = image_access.read_image()
+    image_access = ImageAccess()
+    image_data = image_access.read_image(file_path)
     result = mobile_net_detector.detect_objects(image_data)
     assert "car" in result
