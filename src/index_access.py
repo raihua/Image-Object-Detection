@@ -11,10 +11,10 @@ class IndexAccess:
     def add_detected_objects(self, image_path, objects):
         self.__strategy.add_detected_objects(image_path, objects)
 
-    def get_images_with_all_objects(self, objects) -> list:
+    def get_images_with_all_objects(self, objects) -> tuple:
         return self.__strategy.get_images_with_all_objects(objects)
 
-    def get_images_with_some_objects(self, objects) -> list:
+    def get_images_with_some_objects(self, objects) -> tuple:
         return self.__strategy.get_images_with_some_objects(objects)
 
     def get_all_images_and_objects(self) -> tuple:
