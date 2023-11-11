@@ -64,5 +64,13 @@ class ImageSearchManager:
         matching_results = self.__matching_engine.execute_matching(
             encoded_objects, encoded_all_images_objects
         )
+
         result_str = self.__output_formatter.format_data(matching_results, k)
+        return result_str
+
+    def list(self):
+        image_and_objects = self.__index_access.get_all_images_and_objects()
+        self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
+        result_str = self.__output_formatter.format_data(image_and_objects)
+        result_str += f"\n{len(image_and_objects)} images found."
         return result_str

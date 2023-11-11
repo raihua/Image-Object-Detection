@@ -1,3 +1,5 @@
+from alphabetical_ascending_format import AlphabeticalAscendingFormat
+from num_descending_format import NumDescendingFormat
 class OutputFormatter:
     def __init__(self):
         self.__strategy = None
@@ -12,14 +14,19 @@ class OutputFormatter:
 
         if k is not None:
             k_results_data = self.__get_top_k_results(formatted_data, k)
+        else:
+            k_results_data = formatted_data
+
+        formatted_str = ""
+        if isinstance(self.__strategy, AlphabeticalAscendingFormat):
             formatted_str = "\n".join(
                 "{}: {}".format(filename, ",".join(objects))
                 for filename, objects in k_results_data.items()
             )
-        else:
+        elif isinstance(self.__strategy, NumDescendingFormat):
             formatted_str = "\n".join(
-                "{}: {}".format(filename, ",".join(objects))
-                for filename, objects in formatted_data.items()
+                "{} {}".format(value, filename)
+                for filename, value in k_results_data.items()
             )
 
         return formatted_str

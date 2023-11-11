@@ -14,12 +14,14 @@ class MatchingEngine:
     
     def execute_matching(self, image1, encoded_objects_with_paths) -> dict:
         results = {}
+        image1_array = np.array(image1)
+        image1_array_reshaped = image1_array.reshape(1, -1)
         for img_path, detected_objs in encoded_objects_with_paths.items():
             # Convert detected_objs to numpy arrays
             detected_objs_array = np.array(detected_objs)
 
             detected_objs_reshaped = detected_objs_array.reshape(1, -1)
             
-            similarity_score = self.__calculate_similarity(image1, detected_objs_reshaped)
-            results[img_path] = similarity_score
+            similarity_score = self.__calculate_similarity(image1_array_reshaped, detected_objs_reshaped)
+            results[img_path] = float(similarity_score)
         return results
