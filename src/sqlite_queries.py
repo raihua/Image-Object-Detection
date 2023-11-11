@@ -39,7 +39,11 @@ GROUP BY D.image_path;
 SELECT_INCLUDE_SOME_DETECTED = """
 SELECT image_path, GROUP_CONCAT(detected_object) AS detected_objects
 FROM Detected_Objects
-WHERE detected_object IN ({})
+WHERE image_path IN (
+    SELECT DISTINCT image_path
+    FROM Detected_Objects
+    WHERE detected_object IN ({})
+)
 GROUP BY image_path;
 """
 
