@@ -1,6 +1,6 @@
 class OutputFormatter:
-    def __init__(self, format_strategy):
-        self.__strategy = format_strategy
+    def __init__(self):
+        self.__strategy = None
 
     def set_strategy(self, strategy):
         self.__strategy = strategy
