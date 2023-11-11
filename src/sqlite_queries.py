@@ -23,7 +23,7 @@ INSERT INTO Detected_Objects (image_path, detected_object) VALUES (?, ?);
 """
 
 SELECT_INCLUDE_ALL_DETECTED = """
-SELECT image_path
+SELECT image_path, GROUP_CONCAT(detected_object) AS detected_objects
 FROM Detected_Objects
 WHERE detected_object IN ({})
 GROUP BY image_path
@@ -31,7 +31,7 @@ HAVING COUNT(DISTINCT detected_object) = {};
 """
 
 SELECT_INCLUDE_SOME_DETECTED = """
-SELECT image_path
+SELECT image_path, GROUP_CONCAT(detected_object) AS detected_objects
 FROM Detected_Objects
 WHERE detected_object IN ({})
 GROUP BY image_path;
