@@ -41,8 +41,11 @@ class SQLiteIndexing(IndexStrategy):
 
         result = self.__cursor.execute(query, objects).fetchall()
 
-        # ('example_images/image1.jpg',), path at 1st element
-        return [row[0] for row in result]
+        result_tuple = tuple(
+            (row[0], row[1].split(",") if row[1] else []) for row in result
+        )
+
+        return result_tuple
 
     def get_images_with_some_objects(self, objects) -> list:
         # Construct the query by dynamically inserting the objects list into the query template
@@ -50,8 +53,11 @@ class SQLiteIndexing(IndexStrategy):
 
         result = self.__cursor.execute(query, objects).fetchall()
 
-        # ('example_images/image1.jpg',), path at 1st element
-        return [row[0] for row in result]
+        result_tuple = tuple(
+            (row[0], row[1].split(",") if row[1] else []) for row in result
+        )
+
+        return result_tuple
 
     def get_all_images_and_objects(self) -> tuple:
         query = SELECT_ALL_IMAGES_OBJECTS_QUERY
@@ -60,6 +66,8 @@ class SQLiteIndexing(IndexStrategy):
 
         # result is in form {"path": "a, b, c"}
         # this converts it to {"path": ["a", "b", "C"]}
-        result_tuple = tuple((row[0], row[1].split(",") if row[1] else []) for row in result)
+        result_tuple = tuple(
+            (row[0], row[1].split(",") if row[1] else []) for row in result
+        )
 
         return result_tuple
