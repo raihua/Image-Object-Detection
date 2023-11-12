@@ -26,7 +26,7 @@ class OutputFormatter:
             )
         elif isinstance(self.__strategy, NumDescendingFormat):
             formatted_str = "\n".join(
-                "{} {}".format(value, filename)
+                "{:.4f} {}".format(value, filename)
                 for filename, value in k_results_data.items()
             )
         else:

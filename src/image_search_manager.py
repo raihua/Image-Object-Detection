@@ -29,7 +29,7 @@ class ImageSearchManager:
         image_data = self.__image_access.read_image(image_path)
         detected_objects = sorted(self.__object_detection.detect_objects(image_data))
         self.__index_access.add_detected_objects(image_path, detected_objects)
-        result_str = "Detected objects " + ",".join(detected_objects)
+        result_str = "Detected objects " + ",".join(detected_objects) + '\n'
         return result_str
 
     def search(self, option, terms) -> str:
@@ -41,7 +41,7 @@ class ImageSearchManager:
 
         self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
         result_str = self.__output_formatter.format_data(result_img_objects)
-        result_str += f"\n{len(result_img_objects)} matches found."
+        result_str += f"\n{len(result_img_objects)} matches found.\n"
         return result_str
 
     def similar(self, k, image_path):
@@ -69,11 +69,11 @@ class ImageSearchManager:
         )
 
         result_str = self.__output_formatter.format_data(matching_results, k)
-        return result_str
+        return result_str + '\n'
 
     def list(self):
         image_and_objects = self.__index_access.get_all_images_and_objects()
         self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
         result_str = self.__output_formatter.format_data(image_and_objects)
-        result_str += f"\n{len(image_and_objects)} images found."
+        result_str += f"\n{len(image_and_objects)} images found.\n"
         return result_str
