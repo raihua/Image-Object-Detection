@@ -1,33 +1,21 @@
-from src.output_formatter import OutputFormatter
-from src.object_detection import ObjectDetection
-from src.index_access import IndexAccess
-from src.image_access import ImageAccess
-from src.matching_engine import MatchingEngine
-
 from src.num_descending_format import NumDescendingFormat
 from src.alphabetical_ascending_format import AlphabeticalAscendingFormat
-from src.sqlite_indexing import SQLiteIndexing
-from src.mobile_net_detector import MobileNetDetector
 from src.cosine_similarity import CosineSimilarity
-
-import sqlite3
 
 
 class ImageSearchManager:
-    def __init__(self):
-        self.__output_formatter = OutputFormatter()
-        self.__object_detection = ObjectDetection()
-        self.__index_access = IndexAccess()
-        self.__image_access = ImageAccess()
-        self.__matching_engine = MatchingEngine()
-
-        self.__index_access.set_strategy(SQLiteIndexing(sqlite3.connect("memory.db")))
-        self.__object_detection.set_model(MobileNetDetector())
+    def __init__(self, output_formatter, object_detection, index_access, image_access, matching_engine):
+        self.__output_formatter = output_formatter
+        self.__object_detection = object_detection
+        self.__index_access = index_access
+        self.__image_access = image_access
+        self.__matching_engine = matching_engine
 
     def add(self, image_path) -> str:
         self.__index_access.add_image_path(image_path)
         image_data = self.__image_access.read_image(image_path)
-        detected_objects = sorted(self.__object_detection.detect_objects(image_data))
+        detected_objects = sorted(
+            self.__object_detection.detect_objects(image_data))
         self.__index_access.add_detected_objects(image_path, detected_objects)
         result_str = "Detected objects " + ",".join(detected_objects) + '\n'
         return result_str
@@ -35,9 +23,11 @@ class ImageSearchManager:
     def search(self, option, terms) -> str:
         result_img_objects = None
         if option:
-            result_img_objects = self.__index_access.get_images_with_all_objects(terms)
+            result_img_objects = self.__index_access.get_images_with_all_objects(
+                terms)
         else:
-            result_img_objects = self.__index_access.get_images_with_some_objects(terms)
+            result_img_objects = self.__index_access.get_images_with_some_objects(
+                terms)
 
         self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
         result_str = self.__output_formatter.format_data(result_img_objects)
@@ -53,11 +43,13 @@ class ImageSearchManager:
         objects_detected = None
         if image_path not in all_images_objects.keys():
             image_data = self.__image_access.read_image(image_path)
-            objects_detected = self.__object_detection.detect_objects(image_data)
+            objects_detected = self.__object_detection.detect_objects(
+                image_data)
         else:
             objects_detected = all_images_objects[image_path]
 
-        encoded_objects = self.__object_detection.encode_labels(objects_detected)
+        encoded_objects = self.__object_detection.encode_labels(
+            objects_detected)
 
         encoded_all_images_objects = {}
         for path, labels in all_images_objects.items():
