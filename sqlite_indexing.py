@@ -1,6 +1,6 @@
 import sqlite3
-from src.index_strategy import IndexStrategy
-from src.sqlite_queries import (
+from index_strategy import IndexStrategy
+from sqlite_queries import (
     CREATE__IMAGES_TABLE_QUERY,
     CREATE_DETECTED_OBJECTS_TABLE_QUERY,
     INSERT_IMAGE_PATH_PARAM_QUERY,

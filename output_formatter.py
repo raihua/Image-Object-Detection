@@ -1,5 +1,5 @@
-from src.alphabetical_ascending_format import AlphabeticalAscendingFormat
-from src.num_descending_format import NumDescendingFormat
+from alphabetical_ascending_format import AlphabeticalAscendingFormat
+from num_descending_format import NumDescendingFormat
 
 
 class OutputFormatter:

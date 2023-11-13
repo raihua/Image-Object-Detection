@@ -1,6 +1,6 @@
-from src.num_descending_format import NumDescendingFormat
-from src.alphabetical_ascending_format import AlphabeticalAscendingFormat
-from src.cosine_similarity import CosineSimilarity
+from num_descending_format import NumDescendingFormat
+from alphabetical_ascending_format import AlphabeticalAscendingFormat
+from cosine_similarity import CosineSimilarity
 
 
 class ImageSearchManager:
