@@ -5,7 +5,7 @@ import os
 
 class ImageAccess:
     def __init__(self, allowed_directory="example_images"):
-        self.allowed_directory = allowed_directory
+        self.__allowed_directory = allowed_directory
 
     def read_image(self, path) -> np.ndarray:
         self.__validate_file_existence(path)
@@ -18,5 +18,5 @@ class ImageAccess:
 
     def __validate_directory_access(self, path):
         directory = os.path.dirname(path)
-        if directory != self.allowed_directory:
+        if directory != self.__allowed_directory:
             raise ValueError(f"Access to directory '{directory}' not permitted.")

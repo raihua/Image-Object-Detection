@@ -5,7 +5,7 @@ class AlphabeticalAscendingFormat(FormatStrategy):
     def __init__(self):
         super().__init__()
 
-    def format_data(self, result_data) -> str:
+    def format_data(self, result_data) -> dict:
         # Sort the dictionary items by keys (image paths)
         sorted_result_data = {
             key: sorted(value) for key, value in sorted(result_data.items())
