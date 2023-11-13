@@ -1,5 +1,5 @@
 import pytest
-from src.num_descending_format import NumDescendingFormat
+from num_descending_format import NumDescendingFormat
 
 @pytest.fixture
 def format_num_descending():

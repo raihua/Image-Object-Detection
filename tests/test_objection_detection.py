@@ -1,8 +1,8 @@
 import pytest
-from src.object_detection import ObjectDetection
-from src.mobile_net_detector import MobileNetDetector
-from src.object_detector import ALL_LABELS
-from src.image_access import ImageAccess
+from object_detection import ObjectDetection
+from mobile_net_detector import MobileNetDetector
+from object_detector import ALL_LABELS
+from image_access import ImageAccess
 
 
 @pytest.fixture

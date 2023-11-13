@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from src.image_access import ImageAccess
+from image_access import ImageAccess
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
-from src.matching_engine import MatchingEngine
-from src.cosine_similarity import CosineSimilarity
+from matching_engine import MatchingEngine
+from cosine_similarity import CosineSimilarity
 
 
 @pytest.fixture

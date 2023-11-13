@@ -1,5 +1,5 @@
 import pytest
-from src.image_search_manager import ImageSearchManager
+from image_search_manager import ImageSearchManager
 from unittest.mock import Mock
 
 

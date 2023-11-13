@@ -1,7 +1,7 @@
 import pytest
 import sqlite3
-from src.index_access import IndexAccess
-from src.sqlite_indexing import SQLiteIndexing
+from index_access import IndexAccess
+from sqlite_indexing import SQLiteIndexing
 
 
 @pytest.fixture

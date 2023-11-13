@@ -1,7 +1,7 @@
 import pytest
-from src.output_formatter import OutputFormatter
-from src.alphabetical_ascending_format import AlphabeticalAscendingFormat
-from src.num_descending_format import NumDescendingFormat
+from output_formatter import OutputFormatter
+from alphabetical_ascending_format import AlphabeticalAscendingFormat
+from num_descending_format import NumDescendingFormat
 
 
 @pytest.fixture

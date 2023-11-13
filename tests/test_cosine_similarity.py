@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from matplotlib.image import imread
-from src.cosine_similarity import CosineSimilarity
+from cosine_similarity import CosineSimilarity
 
 
 @pytest.fixture

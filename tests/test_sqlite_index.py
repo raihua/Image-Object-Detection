@@ -1,6 +1,6 @@
 import pytest
 import sqlite3
-from src.sqlite_indexing import SQLiteIndexing
+from sqlite_indexing import SQLiteIndexing
 
 
 @pytest.fixture
