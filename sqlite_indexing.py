@@ -1,7 +1,7 @@
 import sqlite3
 from index_strategy import IndexStrategy
 from sqlite_queries import (
-    CREATE__IMAGES_TABLE_QUERY,
+    CREATE_IMAGES_TABLE_QUERY,
     CREATE_DETECTED_OBJECTS_TABLE_QUERY,
     INSERT_IMAGE_PATH_PARAM_QUERY,
     SELECT_INCLUDE_ALL_DETECTED,
@@ -21,7 +21,7 @@ class SQLiteIndexing(IndexStrategy):
 
     def __create_table(self):
         with self.__conn:
-            self.__conn.execute(CREATE__IMAGES_TABLE_QUERY)
+            self.__conn.execute(CREATE_IMAGES_TABLE_QUERY)
             self.__conn.execute(CREATE_DETECTED_OBJECTS_TABLE_QUERY)
 
     def __execute_and_commit(self, query, params=()):
