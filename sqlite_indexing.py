@@ -12,9 +12,6 @@ from sqlite_queries import (
     SELECT_COUNT_DETECTED,
 )
 
-import sqlite3
-from index_strategy import IndexStrategy
-from sqlite_queries import *
 
 class SQLiteIndexing(IndexStrategy):
     def __init__(self):
