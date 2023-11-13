@@ -36,11 +36,11 @@ def test_image_search_manager_builder(
     matching_strategy = Mock()
 
     builder = ImageSearchManagerBuilder()
-    builder.output_formatter = output_formatter
-    builder.object_detection = object_detection
-    builder.index_access = index_access
-    builder.image_access = image_access
-    builder.matching_engine = matching_engine
+    builder._ImageSearchManagerBuilder__output_formatter = output_formatter
+    builder._ImageSearchManagerBuilder__object_detection = object_detection
+    builder._ImageSearchManagerBuilder__index_access = index_access
+    builder._ImageSearchManagerBuilder__image_access = image_access
+    builder._ImageSearchManagerBuilder__matching_engine = matching_engine
 
     builder.set_index_strategy(index_strategy)
     builder.set_object_detection_model(object_detection_model)
