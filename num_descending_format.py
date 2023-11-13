@@ -12,3 +12,6 @@ class NumDescendingFormat(FormatStrategy):
         )
 
         return sorted_result_data
+
+    def format_output(self, data) -> str:
+            return "\n".join("{:.4f} {}".format(value, filename) for filename, value in data.items())

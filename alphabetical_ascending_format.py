@@ -11,3 +11,6 @@ class AlphabeticalAscendingFormat(FormatStrategy):
             key: sorted(value) for key, value in sorted(result_data.items())
         }
         return sorted_result_data
+    
+    def format_output(self, data) -> str:
+        return "\n".join("{}: {}".format(filename, ",".join(objects)) for filename, objects in data.items())
