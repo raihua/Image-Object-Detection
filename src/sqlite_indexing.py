@@ -1,3 +1,4 @@
+import sqlite3
 from src.index_strategy import IndexStrategy
 from src.sqlite_queries import (
     CREATE__IMAGES_TABLE_QUERY,
@@ -13,9 +14,9 @@ from src.sqlite_queries import (
 
 
 class SQLiteIndexing(IndexStrategy):
-    def __init__(self, conn):
+    def __init__(self):
         super().__init__()
-        self.__conn = conn
+        self.__conn = sqlite3.connect("memory.db")
         self.__cursor = self.__conn.cursor()
         self.create_table()
 
