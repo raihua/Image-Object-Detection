@@ -12,60 +12,51 @@ class ImageSearchManager:
         self.__matching_engine = matching_engine
 
     def add(self, image_path) -> str:
-        self.__index_access.add_image_path(image_path)
-        image_data = self.__image_access.read_image(image_path)
-        detected_objects = sorted(
-            self.__object_detection.detect_objects(image_data))
-        self.__index_access.add_detected_objects(image_path, detected_objects)
-        result_str = "Detected objects " + ",".join(detected_objects) + '\n'
-        return result_str
+        detected_objects = self.__detect_and_store_objects(image_path)
+        return self.__format_detected_objects(detected_objects)
 
     def search(self, option, terms) -> str:
-        result_img_objects = None
-        if option:
-            result_img_objects = self.__index_access.get_images_with_all_objects(
-                terms)
-        else:
-            result_img_objects = self.__index_access.get_images_with_some_objects(
-                terms)
-
+        result_img_objects = self.__get_search_results(option, terms)
         self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
-        result_str = self.__output_formatter.format_data(result_img_objects)
-        result_str += f"\n{len(result_img_objects)} matches found.\n"
-        return result_str
+        return self.__format_search_results(result_img_objects)
 
     def similar(self, k, image_path):
         self.__output_formatter.set_strategy(NumDescendingFormat())
         self.__matching_engine.set_strategy(CosineSimilarity())
 
-        all_images_objects = self.__index_access.get_all_images_and_objects()
-
-        objects_detected = None
-        if image_path not in all_images_objects.keys():
-            image_data = self.__image_access.read_image(image_path)
-            objects_detected = self.__object_detection.detect_objects(
-                image_data)
-        else:
-            objects_detected = all_images_objects[image_path]
-
-        encoded_objects = self.__object_detection.encode_labels(
-            objects_detected)
-
-        encoded_all_images_objects = {}
-        for path, labels in all_images_objects.items():
-            encoded_labels = self.__object_detection.encode_labels(labels)
-            encoded_all_images_objects[path] = encoded_labels
-
-        matching_results = self.__matching_engine.execute_matching(
-            encoded_objects, encoded_all_images_objects
-        )
-
-        result_str = self.__output_formatter.format_data(matching_results, k)
-        return result_str + '\n'
+        encoded_objects, encoded_all_images_objects = self.__prepare_encoded_objects(image_path)
+        matching_results = self.__matching_engine.execute_matching(encoded_objects, encoded_all_images_objects)
+        return self.__format_matching_results(matching_results, k)
 
     def list(self):
         image_and_objects = self.__index_access.get_all_images_and_objects()
         self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
-        result_str = self.__output_formatter.format_data(image_and_objects)
-        result_str += f"\n{len(image_and_objects)} images found.\n"
-        return result_str
+        return self.__format_search_results(image_and_objects)
+
+    def __detect_and_store_objects(self, image_path):
+        self.__index_access.add_image_path(image_path)
+        image_data = self.__image_access.read_image(image_path)
+        detected_objects = sorted(self.__object_detection.detect_objects(image_data))
+        self.__index_access.add_detected_objects(image_path, detected_objects)
+        return detected_objects
+
+    def __format_detected_objects(self, detected_objects):
+        return "Detected objects " + ",".join(detected_objects) + '\n'
+
+    def __get_search_results(self, option, terms):
+        return self.__index_access.get_images_with_all_objects(terms) if option else self.__index_access.get_images_with_some_objects(terms)
+
+    def __format_search_results(self, results):
+        formatted_results = self.__output_formatter.format_data(results)
+        return formatted_results + f"\n{len(results)} matches found.\n"
+
+    def __prepare_encoded_objects(self, image_path):
+        all_images_objects = self.__index_access.get_all_images_and_objects()
+        objects_detected = all_images_objects.get(image_path) or self.__object_detection.detect_objects(self.__image_access.read_image(image_path))
+        encoded_objects = self.__object_detection.encode_labels(objects_detected)
+        encoded_all_images_objects = {path: self.__object_detection.encode_labels(labels) for path, labels in all_images_objects.items()}
+        return encoded_objects, encoded_all_images_objects
+
+    def __format_matching_results(self, results, k):
+        formatted_results = self.__output_formatter.format_data(results, k)
+        return formatted_results + '\n'
