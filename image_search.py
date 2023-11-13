@@ -5,9 +5,9 @@ import os
 # project_root = os.path.dirname(os.path.abspath(__file__))
 # sys.path.append(project_root)
 
-from src.image_search_manager_builder import ImageSearchManagerBuilder
-from src.sqlite_indexing import SQLiteIndexing
-from src.mobile_net_detector import MobileNetDetector
+from image_search_manager_builder import ImageSearchManagerBuilder
+from sqlite_indexing import SQLiteIndexing
+from mobile_net_detector import MobileNetDetector
 builder = ImageSearchManagerBuilder()
 image_search_manager = builder\
     .set_index_strategy(SQLiteIndexing())\

@@ -1,9 +1,9 @@
-from src.output_formatter import OutputFormatter
-from src.object_detection import ObjectDetection
-from src.index_access import IndexAccess
-from src.image_access import ImageAccess
-from src.matching_engine import MatchingEngine
-from src.image_search_manager import ImageSearchManager
+from output_formatter import OutputFormatter
+from object_detection import ObjectDetection
+from index_access import IndexAccess
+from image_access import ImageAccess
+from matching_engine import MatchingEngine
+from image_search_manager import ImageSearchManager
 
 class ImageSearchManagerBuilder:
     def __init__(self):
