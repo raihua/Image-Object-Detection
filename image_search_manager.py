@@ -18,7 +18,7 @@ class ImageSearchManager:
     def search(self, option, terms) -> str:
         result_img_objects = self.__get_search_results(option, terms)
         self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
-        return self.__format_search_results(result_img_objects)
+        return self.__format_search_results(result_img_objects, "matches")
 
     def similar(self, k, image_path):
         self.__output_formatter.set_strategy(NumDescendingFormat())
@@ -31,7 +31,7 @@ class ImageSearchManager:
     def list(self):
         image_and_objects = self.__index_access.get_all_images_and_objects()
         self.__output_formatter.set_strategy(AlphabeticalAscendingFormat())
-        return self.__format_search_results(image_and_objects)
+        return self.__format_search_results(image_and_objects, "images")
 
     def __detect_and_store_objects(self, image_path):
         self.__index_access.add_image_path(image_path)
@@ -46,9 +46,9 @@ class ImageSearchManager:
     def __get_search_results(self, option, terms):
         return self.__index_access.get_images_with_all_objects(terms) if option else self.__index_access.get_images_with_some_objects(terms)
 
-    def __format_search_results(self, results):
+    def __format_search_results(self, results, found_word):
         formatted_results = self.__output_formatter.format_data(results)
-        return formatted_results + f"\n{len(results)} matches found.\n"
+        return formatted_results + f"\n{len(results)} {found_word} found.\n"
 
     def __prepare_encoded_objects(self, image_path):
         all_images_objects = self.__index_access.get_all_images_and_objects()

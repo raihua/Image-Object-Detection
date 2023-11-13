@@ -6,12 +6,14 @@ from sqlite_indexing import SQLiteIndexing
 
 @pytest.fixture
 def index_access_sqlite_index_cursor():
-    conn = sqlite3.connect(":memory:")
-    sqlite_indexing = SQLiteIndexing(conn)
+
+    sqlite_indexing = SQLiteIndexing()
+    sqlite_indexing._SQLiteIndexing__conn = sqlite3.connect(":memory:")
+    sqlite_indexing._SQLiteIndexing__create_table()
     # Creating an in-memory SQLite database and executing table creation statements.
     index_access = IndexAccess()
     index_access.set_strategy(sqlite_indexing)
-    cursor = conn.cursor()
+    cursor = sqlite_indexing._SQLiteIndexing__conn.cursor()
 
     yield index_access, sqlite_indexing, cursor
 
