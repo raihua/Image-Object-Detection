@@ -2,11 +2,17 @@ import click
 import sys
 import os
 
-project_root = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(project_root)
-from src.image_search_manager import ImageSearchManager
+# project_root = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(project_root)
 
-image_search_manager = ImageSearchManager()
+from src.image_search_manager_builder import ImageSearchManagerBuilder
+from src.sqlite_indexing import SQLiteIndexing
+from src.mobile_net_detector import MobileNetDetector
+builder = ImageSearchManagerBuilder()
+image_search_manager = builder\
+    .set_index_strategy(SQLiteIndexing())\
+    .set_object_detection_model(MobileNetDetector())\
+    .build()
 
 
 @click.group()
