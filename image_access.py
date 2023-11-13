@@ -4,18 +4,19 @@ import os
 
 
 class ImageAccess:
-    def read_image(self, path) -> np.ndarray:
-        self.__validate_directory(path)
-        image_data = mpimg.imread(path)
-        return image_data
+    def __init__(self, allowed_directory="example_images"):
+        self.allowed_directory = allowed_directory
 
-    def __validate_directory(self, path):
+    def read_image(self, path) -> np.ndarray:
+        self.__validate_file_existence(path)
+        self.__validate_directory_access(path)
+        return mpimg.imread(path)
+
+    def __validate_file_existence(self, path):
         if not os.path.exists(path):
             raise FileNotFoundError(f'Image file "{path}" does not exist.')
-        # Extract the directory component
-        directory = os.path.split(path)[0]
 
-        allowed_directory = "example_images"
-
-        if directory != allowed_directory:
+    def __validate_directory_access(self, path):
+        directory = os.path.dirname(path)
+        if directory != self.allowed_directory:
             raise ValueError(f"Access to directory '{directory}' not permitted.")
